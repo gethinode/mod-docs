@@ -15,7 +15,7 @@ Use the timeline shortcode to show items ordered on a vertical timeline.
 
 <!-- markdownlint-disable MD037 -->
 {{< example lang="hugo" >}}
-{{</* timeline data="timeline" background="body-tertiary" */>}}
+{{</* timeline data="timeline-sample" background="body-tertiary" */>}}
 {{< /example >}}
 <!-- markdownlint-enable MD037 -->
 
