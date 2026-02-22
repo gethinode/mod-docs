@@ -26,13 +26,13 @@ Set `carousel` to `true` to render a carousel of multiple testimonials.
   testimonials:
     - icon: fab linkedin
       content: First testimonial.
-      link: /en/about/
+      link: #!
     - icon: fab google
       content: Second testimonial.
-      link: /en/about/
+      link: #!
     - icon: fab github
       content: Third testimonial.
-      link: /en/about/
+      link: #!
 ```
 
 {{< /example-bookshop >}}
