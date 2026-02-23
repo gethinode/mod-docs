@@ -83,7 +83,7 @@ Set `link-type` to `link` to add links below the content.
   link-type: link
   links:
     - title: First link
-      url: about
+      url: #!
       icon: chevron-right
       force: true
     - title: Second link
@@ -116,7 +116,7 @@ Set `link-type` to `button` to add buttons below the content. You can adjust the
   link-type: button
   links:
     - title: Primary button
-      url: about
+      url: #!
       icon: chevron-right
       force: true
     - title: Outline button

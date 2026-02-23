@@ -5,6 +5,7 @@ date: 2023-12-30
 description: Use the sup shortcode to display text in superscript.
 layout: docs
 tags: component
+weight: 320
 ---
 
 ## Overview

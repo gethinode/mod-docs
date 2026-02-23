@@ -5,6 +5,7 @@ date: 2025-01-16
 description: Use the abbr shortcode to show the long form of an abbreviation.
 layout: docs
 tags: component
+weight: 10
 ---
 
 ## Overview

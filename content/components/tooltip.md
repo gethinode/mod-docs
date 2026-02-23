@@ -5,6 +5,7 @@ date: 2023-12-30
 description: Use the tooltip shortcode to display a tooltip for a hyperlink.
 layout: docs
 tags: component
+weight: 360
 ---
 
 ## Overview

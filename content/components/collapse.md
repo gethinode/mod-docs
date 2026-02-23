@@ -5,6 +5,7 @@ date: 2024-08-14
 description: Use the collapse shortcode to reveal or hide a panel.
 layout: docs
 tags: component
+weight: 130
 ---
 
 ## Overview

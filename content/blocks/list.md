@@ -101,7 +101,7 @@ Customize the list by providing a `hook` partial.
 
 Define the hook partial in your site's `layouts/_partials` folder. The following example renders a custom Markdown table consisting of the article's title and publication date.
 
-{{< file file="./exampleSite/layouts/_partials/assets/table-hook.html" full=false lang="go-template" >}}
+{{< file file="./layouts/_partials/assets/table-hook.html" full=false lang="go-template" >}}
 
 ## Arguments
 

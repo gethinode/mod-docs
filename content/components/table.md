@@ -6,6 +6,7 @@ description: Use the table shortcode to make your Markdown table responsive.
 layout: docs
 tags: component
 modules: ["simple-datatables"]
+weight: 330
 ---
 
 ## Overview

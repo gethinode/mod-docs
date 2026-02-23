@@ -6,6 +6,7 @@ description: Use the mermaid shortcode to add diagrams and charts powered by Mer
 layout: docs
 tags: component
 modules: ["mermaid"]
+weight: 250
 ---
 
 ## Overview

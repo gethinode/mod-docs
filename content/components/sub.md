@@ -5,6 +5,7 @@ date: 2023-12-30
 description: Use the sub shortcode to display text in subscript.
 layout: docs
 tags: component
+weight: 310
 ---
 
 ## Overview
