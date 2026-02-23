@@ -5,6 +5,7 @@ date: 2023-12-29
 description: Use the badge shortcode to enrich headings.
 layout: docs
 tags: component
+weight: 60
 ---
 
 ## Overview

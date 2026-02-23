@@ -6,6 +6,7 @@ description: Use the map shortcode to show an interactive map.
 layout: docs
 tags: component
 modules: ["leaflet"]
+weight: 230
 ---
 
 ## Overview

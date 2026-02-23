@@ -5,6 +5,7 @@ date: 2024-08-14
 description: Use the carousel shortcode to display a carousel of several images.
 layout: docs
 tags: component
+weight: 120
 ---
 
 ## Overview

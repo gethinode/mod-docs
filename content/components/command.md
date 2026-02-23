@@ -5,6 +5,7 @@ date: 2023-12-29
 description: The command shortcode generates terminal output for either Bash, PowerShell, or SQL shell languages.
 layout: docs
 tags: component
+weight: 140
 ---
 
 ## Overview

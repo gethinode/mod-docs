@@ -5,6 +5,7 @@ date: 2023-08-14
 description: Use the spinner shortcode to indicate the loading state of a component or page.
 layout: docs
 tags: component
+weight: 300
 ---
 
 ## Overview

@@ -5,6 +5,7 @@ date: 2023-12-29
 description: Use the breadcrumb shortcode to display the current page’s location within the site's navigational hierarchy.
 layout: docs
 tags: component
+weight: 70
 ---
 
 ## Overview

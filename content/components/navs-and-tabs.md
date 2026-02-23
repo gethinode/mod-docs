@@ -5,6 +5,7 @@ date: 2023-12-30
 description: Use the nav shortcode to show a group of multiple tab panes.
 layout: docs
 tags: component
+weight: 270
 ---
 
 ## Overview

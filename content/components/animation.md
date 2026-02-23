@@ -6,6 +6,7 @@ description: Use the animation shortcode to show an After Effects animation.
 layout: docs
 tags: component
 modules: ["lottie"]
+weight: 40
 ---
 
 ## Overview

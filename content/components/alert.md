@@ -5,6 +5,7 @@ date: 2023-12-29
 description: Use the alert shortcode to display a contextual feedback message.
 layout: docs
 tags: component
+weight: 30
 ---
 
 ## Overview

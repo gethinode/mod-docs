@@ -5,6 +5,7 @@ date: 2024-08-14
 description: Use the icon shortcode to add a Font Awesome or custom icon with ease.
 layout: docs
 tags: component
+weight: 180
 ---
 
 ## Overview

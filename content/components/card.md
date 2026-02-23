@@ -6,6 +6,7 @@ description: Use the card shortcode to display a card that links to a content pa
 layout: docs
 icon: fa address-card
 tags: component
+weight: 110
 ---
 
 ## Overview
