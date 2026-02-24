@@ -2,3 +2,5 @@ github.com/gethinode/mod-docs v0.0.0-20260222134305-80cebfd8ba29 h1:iemYI2uoH3v7
 github.com/gethinode/mod-docs v0.0.0-20260222134305-80cebfd8ba29/go.mod h1:ru1w0fHqFocjDIMV0dm40OwhBw5k4UncCS8iO/1S5kI=
 github.com/gethinode/mod-docs v1.0.1 h1:T8CSI7EetP6sOYusQObyrT0QJ6o9LQH8lQkaJBQs51M=
 github.com/gethinode/mod-docs v1.0.1/go.mod h1:ru1w0fHqFocjDIMV0dm40OwhBw5k4UncCS8iO/1S5kI=
+github.com/gethinode/mod-docs v1.0.2 h1:kqdmhj7mewNXyjTMnILFolOBfLo51mHSw0fCTWwG5vA=
+github.com/gethinode/mod-docs v1.0.2/go.mod h1:ru1w0fHqFocjDIMV0dm40OwhBw5k4UncCS8iO/1S5kI=
