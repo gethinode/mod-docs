@@ -30,7 +30,7 @@ Set `show` to `false` to hide the code snippet on page load. The code is reveale
 
 <!-- markdownlint-disable MD037 -->
 {{< example lang="hugo" >}}
-{{</* docs name="breadcrumb" show="false" file="./assets/scss/components/_breadcrumb.scss" id="docs-collapse" */>}}
+{{</* docs name="kbd" show="false" file="./assets/scss/components/_kbd.scss" id="docs-collapse" */>}}
 {{< /example >}}
 <!-- markdownlint-enable MD037 -->
 
@@ -40,7 +40,7 @@ Set `full` to `false` to show the filename only.
 
 <!-- markdownlint-disable MD037 -->
 {{< example lang="hugo" >}}
-{{</* docs name="breadcrumb" full=false file="./assets/scss/components/_breadcrumb.scss" id="docs-filename" */>}}
+{{</* docs name="kbd" full=false file="./assets/scss/components/_kbd.scss" id="docs-filename" */>}}
 {{< /example >}}
 <!-- markdownlint-enable MD037 -->
 
@@ -59,7 +59,7 @@ Click on one of the tabs to see a full input file example.
     {{</* file file="./data/style.toml" */>}}
   {{< /nav-item >}}
   {{< nav-item title="scss" >}}
-    {{</* file file="./assets/scss/components/_breadcrumb.scss" */>}}
+    {{</* file file="./assets/scss/components/_kbd.scss" */>}}
   {{< /nav-item >}}
 {{< /nav >}}
 <!-- markdownlint-enable MD031 MD037 -->
