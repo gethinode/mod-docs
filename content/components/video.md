@@ -6,7 +6,7 @@ aliases:
   - "youtube"
   - "vimeo"
 description: Use the video shortcode to embed a responsive video on your site.
-layout: docs
+type: docs
 tags: component
 modules: ["vimeo"]
 weight: 370

@@ -3,7 +3,7 @@ author: Mark Dumay
 title: Accordion
 date: 2023-12-29
 description: Use the accordion shortcode to show a group of vertically collapsing and expanding items.
-layout: docs
+type: docs
 tags: component
 weight: 20
 ---

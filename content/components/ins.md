@@ -3,7 +3,7 @@ author: Mark Dumay
 title: Ins
 date: 2024-12-13
 description: Use the ins shortcode to underline text.
-layout: docs
+type: docs
 tags: component
 weight: 200
 ---

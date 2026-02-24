@@ -3,7 +3,7 @@ author: Mark Dumay
 title: Mermaid
 date: 2025-06-15
 description: Use the mermaid shortcode to add diagrams and charts powered by Mermaid.
-layout: docs
+type: docs
 tags: component
 modules: ["mermaid"]
 weight: 250

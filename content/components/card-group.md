@@ -3,7 +3,7 @@ author: Mark Dumay
 title: Card Group
 date: 2023-12-29
 description: Use the card-group shortcode to display a group of cards.
-layout: docs
+type: docs
 tags: component
 weight: 100
 ---

@@ -3,7 +3,7 @@ author: Mark Dumay
 title: Map
 date: 2024-01-02
 description: Use the map shortcode to show an interactive map.
-layout: docs
+type: docs
 tags: component
 modules: ["leaflet"]
 weight: 230

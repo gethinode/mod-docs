@@ -3,7 +3,7 @@ author: Mark Dumay
 title: Breadcrumb
 date: 2023-12-29
 description: Use the breadcrumb shortcode to display the current page’s location within the site's navigational hierarchy.
-layout: docs
+type: docs
 tags: component
 weight: 70
 ---
@@ -50,9 +50,7 @@ build:
 
 ## Styling
 
-The file `assets/scss/components/_breadcrumb.scss` defines the Hinode-specific styling of the `breadcrumb` shortcode. Check the [Bootstrap documentation](https://getbootstrap.com/docs/5.3/components/breadcrumb/#css) for additional styling options.
-
-{{< file file="assets/scss/components/_breadcrumb.scss" show="false" >}}
+Check the [Bootstrap documentation](https://getbootstrap.com/docs/5.3/components/breadcrumb/#css) for additional styling options.
 
 ## Arguments
 
