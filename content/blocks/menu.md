@@ -2,6 +2,8 @@
 _schema: default
 title: Menu
 description: Use the menu content block to render a grid of level 1 and level 2 menu items.
+type: docs
+tags: block
 ---
 
 ## Overview

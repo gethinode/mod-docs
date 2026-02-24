@@ -2,9 +2,10 @@
 author: Mark Dumay
 title: Components
 description: Discover Hinode's more than 30 ready-to-use components.
-tags: components
-aliases:
-  - "/components/"
+tags: component
+date: 2026-02-23
+weight: 20
+type: docs
 content_blocks:
   - _bookshop_name: hero
     heading:
@@ -16,7 +17,6 @@ content_blocks:
         [Hugo shortcodes](https://gohugo.io/shortcodes/). Click on an item for
         more details about a component.
       align: start
-    width: 8
     breadcrumb: true
 
   - _bookshop_name: articles

@@ -3,7 +3,7 @@ author: Mark Dumay
 title: Button Group
 date: 2023-12-29
 description: Use the button-group shortcode to display a group of buttons.
-layout: docs
+type: docs
 tags: component
 weight: 80
 ---

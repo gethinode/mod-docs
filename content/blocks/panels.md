@@ -2,6 +2,8 @@
 _schema: default
 title: Panels
 description: Use the panels content block to display multiple toggable panels.
+type: docs
+tags: block
 ---
 
 ## Overview

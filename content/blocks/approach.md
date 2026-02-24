@@ -2,6 +2,8 @@
 _schema: default
 title: Approach
 description: Use the approach block to show a featured image with one or more steps.
+type: docs
+tags: block
 ---
 
 ## Overview

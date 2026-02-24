@@ -3,7 +3,7 @@ author: Mark Dumay
 title: Badge
 date: 2023-12-29
 description: Use the badge shortcode to enrich headings.
-layout: docs
+type: docs
 tags: component
 weight: 60
 ---

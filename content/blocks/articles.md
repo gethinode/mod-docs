@@ -2,6 +2,8 @@
 _schema: default
 title: Articles
 description: Use the articles block to show a group of article cards.
+type: docs
+tags: block
 ---
 
 ## Overview

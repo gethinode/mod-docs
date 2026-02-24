@@ -4,6 +4,8 @@ title: FAQ
 description: >-
   Shows an accordion of frequently asked questions. Clicking on a question
   reveals the answer interactively.
+type: docs
+tags: block
 ---
 
 ## Overview

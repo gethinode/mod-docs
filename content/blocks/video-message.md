@@ -3,6 +3,8 @@ _schema: default
 title: Video message
 description: >-
   Features a video with optional messages.
+type: docs
+tags: block
 ---
 
 ## Overview

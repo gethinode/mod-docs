@@ -2,6 +2,8 @@
 _schema: default
 title: Cards
 description: Use the cards block to show a group of content cards.
+type: docs
+tags: block
 ---
 
 ## Overview
