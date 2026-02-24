@@ -1,7 +1,10 @@
 ---
 title: Blocks
-description: Available blocks
-date: 2025-05-13
+description: Assemble your pages using configurable content blocks.
+date: 2026-02-23
+weight: 10
+type: docs
+tags: block
 content_blocks:
   - _bookshop_name: hero
     heading:
@@ -13,7 +16,6 @@ content_blocks:
         blocks are ready for visual editing using [CloudCannon](https://cloudcannon.com/).
         Click on an item for more details.
       align: start
-    width: 8
     breadcrumb: true
 
   - _bookshop_name: articles
