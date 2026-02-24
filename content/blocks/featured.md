@@ -2,6 +2,8 @@
 _schema: default
 title: Featured
 description: Use the featured content block to feature a specific article or downloadable asset.
+type: docs
+tags: block
 ---
 
 ## Overview

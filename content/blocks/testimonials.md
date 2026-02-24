@@ -2,6 +2,8 @@
 _schema: default
 title: Testimonials
 description: Use the testimonials content block to display one or more client testimonials.
+type: docs
+tags: block
 ---
 
 ## Overview

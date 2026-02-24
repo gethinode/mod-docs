@@ -2,6 +2,8 @@
 _schema: default
 title: Team
 description: Use the team content block to show a group of team members.
+type: docs
+tags: block
 ---
 
 ## Overview

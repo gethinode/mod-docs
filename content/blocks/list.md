@@ -3,6 +3,8 @@ _schema: default
 title: List
 description: Use the list content block to show a list of articles.
 modules: ["simple-datatables"]
+type: docs
+tags: block
 ---
 
 ## Overview
