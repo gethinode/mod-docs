@@ -1,0 +1,14 @@
+{{ $pages := .pages | default dict }}
+
+{{ $content := printf "| %s | %s |\n|-|-|\n" (T "article") (T "published") }}
+{{ range $pages }}
+    {{ if site.Params.env_bookshop_live }}
+        {{ $content = printf "%s[%s](#!) | %s |\n" $content .title  (now | time.Format "2006-01-02") }}
+    {{ else }}
+        {{ $content = printf "%s[%s](%s) | %s |\n" $content .LinkTitle .RelPermalink 
+            (.PublishDate | time.Format "2006-01-02") 
+        }}
+    {{ end }}
+{{ end }}
+
+{{ return $content }}

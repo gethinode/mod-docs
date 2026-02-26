@@ -127,7 +127,7 @@ Set `body-style` to `minimal` to show the title of an article only. The predefin
     reverse: false
     sort: date
   more:
-    title: More Blocks
+    title: More Blogs
   cols: 5
   padding: 0
   cover: false
