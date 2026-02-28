@@ -40,9 +40,29 @@ Set the `device` argument to specify which device view to display by default. Op
 - _bookshop_name: preview
   heading:
     title: Tablet Preview
-    content: Opens in tablet view (672×896)
+    content: Opens in tablet view (820×1180 logical pixels)
   url: "https://en.wikipedia.org/wiki/Hugo_(software)"
   device: tablet
+```
+
+{{< /example-bookshop >}}
+<!-- markdownlint-enable MD037 -->
+
+### Strict aspect ratio
+
+By default the desktop preview fills the full container width and height (responsive mode). Set `desktop-responsive: false` to use a strict 16:10 contain fit instead — the full 1440 × 900px frame is always visible with no clipping, leaving symmetric gaps above and below when the container is wider than it is tall.
+
+<!-- markdownlint-disable MD037 -->
+{{< example-bookshop lang="bookshop" >}}
+
+```yml
+- _bookshop_name: preview
+  heading:
+    title: Strict Aspect Ratio
+    content: Full 1440×900px frame always visible, no clipping
+  url: "https://en.wikipedia.org/wiki/Hugo_(software)"
+  device: desktop
+  desktop-responsive: false
 ```
 
 {{< /example-bookshop >}}
@@ -156,39 +176,58 @@ This allows embedding localhost sites during development while maintaining secur
 
 ## Device dimensions
 
-The preview component uses **fixed widths** and **flexible heights**:
+Device dimensions use **logical pixels** (CSS pixels), which is what browsers and responsive design tools use for layout. Physical pixels depend on the device pixel ratio (DPR) of the hardware display.
 
-- **Desktop**: 1200px width (fixed)
-- **Tablet**: 672px width (fixed)
-- **Mobile**: 375px width (fixed)
+| Device | Logical resolution | Aspect ratio | DPR reference |
+|--------|-------------------|--------------|---------------|
+| Desktop | 1440 × 900px | 16:10 | @1× (MacBook / laptop) |
+| Tablet | 820 × 1180px | ~9:13 | @2× (iPad 10th gen / iPad Air M2) |
+| Mobile | 402 × 874px | 9:19.5 | @3× (iPhone 17 Pro, 460 ppi) |
 
-**Heights** adapt to available viewport space:
+A website loaded inside the iframe sees a viewport matching these logical pixel dimensions, so breakpoints and responsive layouts behave exactly as they would on the real device.
 
-```scss
-height: calc(100vh - controls - navbar - margins)
-min-height: 400px
+### Auto-scaling
+
+JavaScript scales each device on page load and on every browser resize. Tablet and mobile always use a **contain fit** — the largest scale where neither dimension is clipped:
+
+```
+scale = min(containerWidth / deviceWidth, containerHeight / deviceHeight, 1)
 ```
 
-Content within panels scrolls vertically when it exceeds the panel height.
+Desktop scaling depends on the `desktop-responsive` argument:
+
+| Mode | `desktop-responsive` | Behaviour |
+|------|----------------------|-----------|
+| Responsive (default) | `true` | Scales to fill the full container width; iframe height is adjusted dynamically so the container height is also filled. The site inside sees a 1440px-wide viewport. |
+| Strict aspect ratio | `false` | Contain fit — the full 1440 × 900px frame is always visible; symmetric gaps may appear above and below on wide containers. |
+
+The zoom recalculates on page load and whenever the browser window is resized.
+
+**Container height** adapts to available viewport space and is capped so tall devices
+(tablet: 1180px logical) are never rendered beyond the available screen area:
+
+```scss
+height: min(calc(100vh - controls - navbar - 4rem),
+            calc(var(--max-section-height, 1024px) - controls));
+min-height: 400px;
+```
 
 ### Responsive visibility
 
 The component automatically shows or hides device previews **based on viewport width only**:
 
-- **Small screens (< 768px)**: Mobile preview only
-- **Medium screens (768px-1199px)**: Tablet and mobile previews
-- **Large screens (≥ 1200px)**: All three previews
-
-**Height does not affect panel visibility** - panels adjust their height to fit the viewport, and content scrolls if needed.
+- **Small screens (< 640px)**: Mobile preview only
+- **Medium screens (640px–1023px)**: Tablet and mobile previews
+- **Large screens (≥ 1024px)**: All three previews
 
 Buttons for hidden device views are automatically hidden from the control bar, and the active view automatically switches when a panel becomes unavailable.
 
 ### Container constraints
 
-Desktop preview (1200px width) works best with:
+In responsive mode (default), the desktop preview fills whatever container it is placed in. For best results with `desktop-responsive: false` or when using `cover: true`:
 
-- `fluid: true` or `width: 12` for full-width layouts
-- Container-xxl or larger for proper display
+- Use `fluid: true` or `width: 12` for full-width layouts
+- Use a container at least as wide as the desired desktop zoom level
 
 ## Security
 
