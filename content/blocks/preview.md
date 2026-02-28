@@ -48,6 +48,25 @@ Set the `device` argument to specify which device view to display by default. Op
 {{< /example-bookshop >}}
 <!-- markdownlint-enable MD037 -->
 
+### Controls below preview
+
+By default the device switcher appears above the preview. Set `controls-placement: bottom` to move it below the preview area instead.
+
+<!-- markdownlint-disable MD037 -->
+{{< example-bookshop lang="bookshop" >}}
+
+```yml
+- _bookshop_name: preview
+  heading:
+    title: Controls Below
+    content: Device switcher placed beneath the preview
+  url: "https://en.wikipedia.org/wiki/Hugo_(software)"
+  controls-placement: bottom
+```
+
+{{< /example-bookshop >}}
+<!-- markdownlint-enable MD037 -->
+
 ### Strict aspect ratio
 
 By default the desktop preview fills the full container width and height (responsive mode). Set `desktop-responsive: false` to use a strict 16:10 contain fit instead — the full 1440 × 900px frame is always visible with no clipping, leaving symmetric gaps above and below when the container is wider than it is tall.
