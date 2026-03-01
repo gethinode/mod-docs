@@ -137,6 +137,45 @@ The preview component works well with embeddable content like [OpenStreetMap](ht
 {{< /example-bookshop >}}
 <!-- markdownlint-enable MD037 -->
 
+### Blocked URL with fallback image
+
+When the target URL sets `X-Frame-Options` or `Content-Security-Policy: frame-ancestors 'none'`, Hugo detects this at build time via a HEAD request and renders the error overlay server-side. Provide an `image` argument to display a representative screenshot in place of the blocked iframe. The warning alert with a direct link is still shown below the image.
+
+Set `show-fallback: true` to force the error overlay explicitly — useful when the HEAD request cannot reach the target URL (offline or CI environments), or when the URL blocks embedding for your specific domain without using the headers detected above.
+
+<!-- markdownlint-disable MD037 -->
+{{< example-bookshop lang="bookshop" >}}
+
+```yml
+- _bookshop_name: preview
+  heading:
+    title: Preview unavailable
+    content: This URL blocks iframe embedding — a fallback image is shown instead
+  url: "https://google.com"
+  image: /img/placeholder.png
+```
+
+{{< /example-bookshop >}}
+<!-- markdownlint-enable MD037 -->
+
+### Blocked URL without fallback image
+
+Without an `image` argument the component shows only the warning alert when the iframe fails to load, with a link to open the URL directly in a new tab.
+
+<!-- markdownlint-disable MD037 -->
+{{< example-bookshop lang="bookshop" >}}
+
+```yml
+- _bookshop_name: preview
+  heading:
+    title: Preview unavailable (alert only)
+    content: No fallback image — only the warning alert is displayed
+  url: "https://google.com"
+```
+
+{{< /example-bookshop >}}
+<!-- markdownlint-enable MD037 -->
+
 ## CSP Configuration
 
 The preview component embeds external URLs in iframes, which requires appropriate Content Security Policy (CSP) configuration.
@@ -178,19 +217,38 @@ For local development, allow HTTP sources in your `config/development/params.tom
 
 This allows embedding localhost sites during development while maintaining security in production.
 
+### Hugo security configuration
+
+Build-time embedding detection issues a HEAD request to each preview URL during the build. Hugo's default security policy only allows `GET` and `POST` methods. Add the following to your site's `config/_default/hugo.toml` to enable HEAD requests:
+
+```toml
+[security]
+  [security.http]
+    methods = ['(?i)GET|POST|HEAD']
+    urls = ['.*']
+```
+
+Without this setting, the HEAD requests are silently blocked and embedding restrictions are not detected. Use `show-fallback: true` to force the fallback explicitly — it is not affected by this setting.
+
 ### Embedding restrictions
 
-**Important:** Many websites prevent iframe embedding using X-Frame-Options or CSP headers:
+Many websites prevent iframe embedding using `X-Frame-Options` or `Content-Security-Policy` response headers. Hugo issues a HEAD request to each preview URL at build time and inspects the response headers. Detection coverage:
 
-- Sites with `X-Frame-Options: DENY` will not load (e.g., Google, Facebook, Twitter)
-- Sites with `X-Frame-Options: SAMEORIGIN` only allow same-origin embedding
-- Sites with `frame-ancestors` CSP directive control who can embed them
+| Response header | Build-time action |
+|---|---|
+| `X-Frame-Options` (any value) | Fallback rendered — blocks all cross-origin embedding |
+| `Content-Security-Policy: frame-ancestors 'none'` | Fallback rendered — blocks all embedding |
+| `Content-Security-Policy: frame-ancestors` with specific domains | No action — domain-specific; whether the iframe loads depends on the deployment domain |
+| No relevant headers | No action — embedding allowed by default |
+
+For `frame-ancestors` with specific domains (e.g. `'self' example.com *.example.com`), Hugo cannot determine at build time whether the iframe will load on your site, since the allowed origins depend on the deployment domain. If you know a URL will not embed on your site, use `show-fallback: true` to render the fallback explicitly.
 
 **Best practices:**
 
 - Use the preview component for sites you control or that explicitly allow embedding
 - Test URLs in development before deploying
-- Provide fallback links when embedding may fail
+- Set `image` to a representative screenshot so users see meaningful content when embedding is blocked
+- Use `show-fallback: true` in offline or CI environments where the HEAD request cannot reach the target URL, or when a URL restricts embedding via domain-specific `frame-ancestors` headers
 - Use embeddable alternatives (e.g., youtube-nocookie.com instead of youtube.com)
 
 ## Device dimensions
