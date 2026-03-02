@@ -2,4 +2,4 @@ module github.com/gethinode/mod-docs-example
 
 go 1.19
 
-require github.com/gethinode/mod-docs v1.3.0 // indirect
+require github.com/gethinode/mod-docs v1.4.0 // indirect
