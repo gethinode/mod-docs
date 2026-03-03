@@ -26,6 +26,16 @@ Set the `ratio` to `1x1` for a square aspect ratio.
 {{< /example >}}
 <!-- markdownlint-enable MD037 -->
 
+Set the `ratio` to `3x1` for a landscape aspect ratio.
+
+{{< release version="v2.0.0" >}}
+
+<!-- markdownlint-disable MD037 -->
+{{< example lang="hugo" >}}
+{{</* image src="img/placeholder.png" ratio="3x1" wrapper="col-6 mx-auto" */>}}
+{{< /example >}}
+<!-- markdownlint-enable MD037 -->
+
 Set the `ratio` to `3x2` for a landscape aspect ratio.
 
 <!-- markdownlint-disable MD037 -->
