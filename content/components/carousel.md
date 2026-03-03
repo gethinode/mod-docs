@@ -28,6 +28,24 @@ Set the `ratio` to `1x1` for a square aspect ratio.
 {{< /example >}}
 <!-- markdownlint-enable MD037 -->
 
+### 3x1 ratio
+
+{{< release version="v2.0.0" >}}
+
+Set the `ratio` to `3x1` for a landscape aspect ratio.
+
+<!-- markdownlint-disable MD037 -->
+{{< example lang="hugo" >}}
+{{</* carousel id="carousel-3x1" ratio="3x1" class="col-sm-12 col-lg-8 mx-auto" */>}}
+  {{</* img src="img/placeholder.png" caption="slide 1" */>}}
+  {{</* img src="img/placeholder.png" caption="slide 2" */>}}
+  {{</* img src="img/placeholder.png" caption="slide 3" */>}}
+{{</* /carousel */>}}
+{{< /example >}}
+<!-- markdownlint-enable MD037 -->
+
+### 3x2 ratio
+
 Set the `ratio` to `3x2` for a landscape aspect ratio.
 
 <!-- markdownlint-disable MD037 -->
