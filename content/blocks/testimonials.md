@@ -67,6 +67,33 @@ Set `cols` to `3` to render three testimonials as columns.
 {{< /example-bookshop >}}
 <!-- markdownlint-enable MD037 -->
 
+### Minimal
+
+Set `responsive` to `false` and omit any content to render a minimal, horizontal stack of icons.
+
+<!-- markdownlint-disable MD037 -->
+{{< example-bookshop lang="bookshop" >}}
+
+```yml
+  - _bookshop_name: testimonials
+    cols: 5
+    background:
+      color: body-tertiary
+    icon_style: fa-fluid text-secondary
+    align: center
+    responsive: false
+    testimonials:
+      - icon: fab github
+      - icon: fab node
+      - icon: fab unsplash
+      - icon: fab font-awesome
+      - icon: fab sass
+```
+
+{{< /example-bookshop >}}
+<!-- markdownlint-enable MD037 -->
+
+
 ## Arguments
 
 The content block supports the following arguments:
