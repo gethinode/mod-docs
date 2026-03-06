@@ -50,7 +50,7 @@ Set the `device` argument to specify which device view to display by default. Op
 
 ### Controls below preview
 
-By default the device switcher appears above the preview. Set `controls-placement: bottom` to move it below the preview area instead.
+By default the device switcher appears above the preview. Set `controls_placement: bottom` to move it below the preview area instead.
 
 <!-- markdownlint-disable MD037 -->
 {{< example-bookshop lang="bookshop" >}}
@@ -61,7 +61,7 @@ By default the device switcher appears above the preview. Set `controls-placemen
     title: Controls Below
     content: Device switcher placed beneath the preview
   url: "https://en.wikipedia.org/wiki/Hugo_(software)"
-  controls-placement: bottom
+  controls_placement: bottom
 ```
 
 {{< /example-bookshop >}}
@@ -69,7 +69,7 @@ By default the device switcher appears above the preview. Set `controls-placemen
 
 ### Strict aspect ratio
 
-By default the desktop preview fills the full container width and height (responsive mode). Set `desktop-responsive: false` to use a strict 16:10 contain fit instead — the full 1440 × 900px frame is always visible with no clipping, leaving symmetric gaps above and below when the container is wider than it is tall.
+By default the desktop preview fills the full container width and height (responsive mode). Set `desktop_responsive: false` to use a strict 16:10 contain fit instead — the full 1440 × 900px frame is always visible with no clipping, leaving symmetric gaps above and below when the container is wider than it is tall.
 
 <!-- markdownlint-disable MD037 -->
 {{< example-bookshop lang="bookshop" >}}
@@ -81,7 +81,7 @@ By default the desktop preview fills the full container width and height (respon
     content: Full 1440×900px frame always visible, no clipping
   url: "https://en.wikipedia.org/wiki/Hugo_(software)"
   device: desktop
-  desktop-responsive: false
+  desktop_responsive: false
 ```
 
 {{< /example-bookshop >}}
@@ -271,9 +271,9 @@ JavaScript scales each device on page load and on every browser resize. Tablet a
 scale = min(containerWidth / deviceWidth, containerHeight / deviceHeight, 1)
 ```
 
-Desktop scaling depends on the `desktop-responsive` argument:
+Desktop scaling depends on the `desktop_responsive` argument:
 
-| Mode | `desktop-responsive` | Behaviour |
+| Mode | `desktop_responsive` | Behaviour |
 |------|----------------------|-----------|
 | Responsive (default) | `true` | Scales to fill the full container width; iframe height is adjusted dynamically so the container height is also filled. The site inside sees a 1440px-wide viewport. |
 | Strict aspect ratio | `false` | Contain fit — the full 1440 × 900px frame is always visible; symmetric gaps may appear above and below on wide containers. |
@@ -301,7 +301,7 @@ Buttons for hidden device views are automatically hidden from the control bar, a
 
 ### Container constraints
 
-In responsive mode (default), the desktop preview fills whatever container it is placed in. For best results with `desktop-responsive: false` or when using `cover: true`:
+In responsive mode (default), the desktop preview fills whatever container it is placed in. For best results with `desktop_responsive: false` or when using `cover: true`:
 
 - Use `fluid: true` or `width: 12` for full-width layouts
 - Use a container at least as wide as the desired desktop zoom level
