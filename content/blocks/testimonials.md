@@ -79,7 +79,7 @@ Set `responsive` to `false` and omit any content to render a minimal, horizontal
     cols: 5
     background:
       color: body-tertiary
-    icon_style: fa-fluid text-secondary
+    icon_style: fa-2xl text-secondary
     align: center
     responsive: false
     testimonials:
