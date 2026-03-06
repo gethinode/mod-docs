@@ -26,13 +26,13 @@ Set `carousel` to `true` to render a carousel of multiple testimonials.
   icon_style: fa-4x text-secondary
   carousel: true
   testimonials:
-    - icon: fab linkedin
+    - icon: linkedin
       content: First testimonial.
       link: #!
-    - icon: fab google
+    - icon: google
       content: Second testimonial.
       link: #!
-    - icon: fab github
+    - icon: github
       content: Third testimonial.
       link: #!
 ```
@@ -56,11 +56,11 @@ Set `cols` to `3` to render three testimonials as columns.
   icon_style: fa-2x text-secondary
   carousel: false
   testimonials:
-    - icon: fab linkedin
+    - icon: linkedin
       content: First testimonial.
-    - icon: fab google
+    - icon: google
       content: Second testimonial.
-    - icon: fab github
+    - icon: github
       content: Third testimonial.
 ```
 
@@ -83,11 +83,11 @@ Set `responsive` to `false` and omit any content to render a minimal, horizontal
     align: center
     responsive: false
     testimonials:
-      - icon: fab github
-      - icon: fab node
-      - icon: fab unsplash
-      - icon: fab font-awesome
-      - icon: fab sass
+      - icon: github
+      - icon: google
+      - icon: linkedin
+      - icon: facebook
+      - icon: pinterest
 ```
 
 {{< /example-bookshop >}}
