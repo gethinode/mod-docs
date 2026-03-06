@@ -23,7 +23,7 @@ Set `carousel` to `true` to render a carousel of multiple testimonials.
     color: body-tertiary
     subtle: false
   cols: 1
-  icon_style: fa-4x
+  icon_style: fa-4x text-secondary
   carousel: true
   testimonials:
     - icon: fab linkedin
@@ -53,7 +53,7 @@ Set `cols` to `3` to render three testimonials as columns.
     color: body-tertiary
     subtle: false
   cols: 3
-  icon_style: fa-2x
+  icon_style: fa-2x text-secondary
   carousel: false
   testimonials:
     - icon: fab linkedin
