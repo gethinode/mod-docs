@@ -23,8 +23,8 @@ The `team` content block renders a group of team members.
     reverse: false
     sort: title
   cols: 3
-  hide-empty: false
-  header-style: none
+  hide_empty: false
+  header_style: none
   padding: 0
   background:
     color: body-tertiary

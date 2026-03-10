@@ -82,7 +82,7 @@ Set `link-type` to `link` to add links below the content.
     image: /img/placeholder.png
     ratio: 1x1
   order: first
-  link-type: link
+  link_type: link
   links:
     - title: First link
       url: #!
@@ -115,7 +115,7 @@ Set `link-type` to `button` to add buttons below the content. You can adjust the
     image: /img/placeholder.png
     ratio: 1x1
   order: first
-  link-type: button
+  link_type: button
   links:
     - title: Primary button
       url: #!

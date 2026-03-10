@@ -63,7 +63,7 @@ Provide a `contact` person to include the name and thumbnail of a contact person
 ```yml
 - _bookshop_name: cta
   contact: Betty White
-  caption-url: https://gethinode.com
+  caption_url: https://gethinode.com
   background:
     color: body-tertiary
     subtle: false

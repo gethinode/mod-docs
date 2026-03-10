@@ -20,9 +20,9 @@ Set `menu-style` to `grid` to render a responsive menu as a grid.
 ```yml
   - _bookshop_name: menu
     menu: services
-    menu-style: grid
-    icon-rounded: true
-    icon-style: fa-1x
+    menu_style: grid
+    icon_rounded: true
+    icon_style: fa-1x
 ```
 
 {{< /example-bookshop >}}
@@ -38,9 +38,9 @@ Set `menu-style` to `masonry` to render a responsive menu using masonry style.
 ```yml
   - _bookshop_name: menu
     menu: services
-    menu-style: masonry
-    icon-rounded: true
-    icon-style: fa-1x
+    menu_style: masonry
+    icon_rounded: true
+    icon_style: fa-1x
 ```
 
 {{< /example-bookshop >}}
