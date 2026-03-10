@@ -29,10 +29,10 @@ Set `orientation` to `horizontal` to display the messages to the right of the vi
     color: body-tertiary
     subtle: false
   orientation: horizontal
-  icon-style: fa-lg
+  icon_style: fa-lg
   video:
     provider: vimeo
-    media-id: "55073825"
+    media_id: "55073825"
     autoplay: true
     color: black
   messages:
@@ -65,10 +65,10 @@ Set `orientation` to `stacked` to display the messages below the video.
     color: body-tertiary
     subtle: false
   orientation: stacked
-  icon-style: fa-lg
+  icon_style: fa-lg
   video:
     provider: vimeo
-    media-id: "55073825"
+    media_id: "55073825"
     autoplay: true
     color: black
   messages:

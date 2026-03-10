@@ -95,7 +95,7 @@ Set the `icon` attribute of each `element` to an icon to render illustrated card
     color: body-tertiary
     subtle: false
   orientation: stacked
-  icon-style: text-primary
+  icon_style: text-primary
   align: start
   padding: 0
   elements:
@@ -131,7 +131,7 @@ Set the `icon` attribute of each `element` to an icon to render illustrated card
     color: body-tertiary
     subtle: false
   orientation: horizontal
-  icon-style: text-primary
+  icon_style: text-primary
   align: start
   padding: 0
   elements:

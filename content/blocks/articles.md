@@ -26,8 +26,8 @@ The `articles` block renders a group of cards for selected content. By default, 
     section: blog
     reverse: false
     sort: date
-  hide-empty: false
-  header-style: none
+  hide_empty: false
+  header_style: none
   orientation: stacked
   more:
     title: More Blogs
@@ -59,9 +59,9 @@ Set `orientation` to `horizontal` to render the article's illustration before th
     section: blog
     reverse: false
     sort: date
-  hide-empty: false
-  header-style: none
-  body-style: title
+  hide_empty: false
+  header_style: none
+  body_style: title
   orientation: horizontal
   more:
     title: More Blogs
@@ -79,7 +79,7 @@ Set `orientation` to `horizontal` to render the article's illustration before th
 
 ### Rich cards
 
-Adjust the `header-style`, `body-style`, and `footer-style` to refine the card elements being displayed.
+Adjust the `header_style`, `body_style`, and `footer_style` to refine the card elements being displayed.
 
 <!-- markdownlint-disable MD037 -->
 {{< example-bookshop lang="bookshop" >}}
@@ -93,10 +93,10 @@ Adjust the `header-style`, `body-style`, and `footer-style` to refine the card e
     section: blog
     reverse: false
     sort: date
-  hide-empty: false
-  header-style: publication
-  body-style: full
-  footer-style: tags
+  hide_empty: false
+  header_style: publication
+  body_style: full
+  footer_style: tags
   orientation: stacked
   more:
     title: More Blogs
@@ -114,14 +114,14 @@ Adjust the `header-style`, `body-style`, and `footer-style` to refine the card e
 
 ### Minimal cards
 
-Set `body-style` to `minimal` to show the title of an article only. The predefined `class` attribute `card-minimal` applies an underline effect on hover.
+Set `body_style` to `minimal` to show the title of an article only. The predefined `class` attribute `card-minimal` applies an underline effect on hover.
 
 <!-- markdownlint-disable MD037 -->
 {{< example-bookshop lang="bookshop" >}}
 
 ```yml
 - _bookshop_name: articles
-  hide-empty: false
+  hide_empty: false
   input:
     section: blog
     reverse: false
@@ -131,8 +131,8 @@ Set `body-style` to `minimal` to show the title of an article only. The predefin
   cols: 5
   padding: 0
   cover: false
-  header-style: none
-  body-style: minimal
+  header_style: none
+  body_style: minimal
   class: card-minimal
 ```
 

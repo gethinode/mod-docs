@@ -28,7 +28,7 @@ Set `tab-type` to `tabs` to adjust the panel controls.
     color: body-tertiary
     subtle: false
   width: 12
-  tab-type: tabs
+  tab_type: tabs
   ratio: 1x1
   elements:
     - title: First Panel
@@ -63,7 +63,7 @@ Set `tab-type` to `pills` to adjust the panel controls.
     color: body-tertiary
     subtle: false
   width: 12
-  tab-type: pills
+  tab_type: pills
   ratio: 1x1
   elements:
     - title: First Panel
@@ -98,7 +98,7 @@ Set `tab-type` to `underline` to adjust the panel controls.
     color: body-tertiary
     subtle: false
   width: 12
-  tab-type: underline
+  tab_type: underline
   ratio: 1x1
   elements:
     - title: First Panel
@@ -133,7 +133,7 @@ Set `tab-type` to `callout` to adjust the panel controls.
     color: body-tertiary
     subtle: false
   width: 12
-  tab-type: callout
+  tab_type: callout
   ratio: 1x1
   elements:
     - title: First Panel

@@ -19,7 +19,7 @@ content_blocks:
     breadcrumb: true
 
   - _bookshop_name: articles
-    hide-empty: false
+    hide_empty: false
     input:
       reverse: false
       sort: title
@@ -30,7 +30,7 @@ content_blocks:
     paginate: true
     pagination: 25
     cover: false
-    header-style: none
-    body-style: minimal
+    header_style: none
+    body_style: minimal
     class: card-minimal
 ---
