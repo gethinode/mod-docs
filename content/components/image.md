@@ -109,6 +109,22 @@ The shortcode supports vector images of type `.svg` too. The shortcode supports 
 {{< /example >}}
 <!-- markdownlint-enable MD037 -->
 
+### Static assets
+
+Files stored in the site's `static` folder are served as-is, without any image processing or resizing. This is required for formats where processing would alter the content, such as animated GIFs.
+
+{{< release version="v2.1.0" >}}
+
+> [!NOTE]
+> Place the file in your site's `static` folder and reference it by its public path (e.g. `/img/animation.gif`). Static files are detected automatically — no additional arguments are needed.
+
+<!-- markdownlint-disable MD037 -->
+{{< example lang="hugo" >}}
+{{</* image src="/img/cloudcannon-visual-editing.gif"
+    wrapper="col-12 col-md-8 mx-auto border" */>}}
+{{< /example >}}
+<!-- markdownlint-enable MD037 -->
+
 ### DAM images
 
 Hinode supports [Cloudinary](https://cloudinary.com), [ImageKit.io](https://imagekit.io), and [Imgix](https://imgix.com) as Digital Asset Manager (DAM). You can configure these managers in your site parameters. Check out the [DAM configuration](https://gethinode.com/docs/configuration/digital-asset-managers/) for more details.
