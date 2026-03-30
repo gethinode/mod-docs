@@ -36,11 +36,28 @@ Use `title`, `thumbnail`, `icon`, and inner content to define the card's content
 
 ### Referenced content
 
-Set `path` to reference a content page within your site.
+Set `path` to reference a content page within your site. The card uses the title and description of the referenced page, unless overruled.
 
 <!-- markdownlint-disable MD037 -->
 {{< example lang="hugo" >}}
-{{</* card path="button" class="col-sm-12 col-lg-8 mx-auto" /*/>}}
+{{</* card path="button" class="col-sm-12 col-lg-8 mx-auto mb-3" /*/>}}
+{{</* card path="button" class="col-sm-12 col-lg-8 mx-auto" title="Custom Button Title" */>}}
+    Custom button body.
+{{</* /card */>}}
+{{< /example >}}
+<!-- markdownlint-enable MD037 -->
+
+### Inline content with a static reference
+
+Set `href` and `button-label` to reference a static url with a button.
+
+<!-- markdownlint-disable MD037 -->
+{{< example lang="hugo" >}}
+{{</* card padding="3" class="col-sm-12 col-lg-8 mx-auto" title="Hinode theme for Hugo"
+    button-label="Visit the docs" href="https://gethinode.com" */>}}
+    Hinode is a production-ready Hugo theme built on Bootstrap 5.
+    Open source, actively maintained, and built for developers.
+{{</* /card */>}}
 {{< /example >}}
 <!-- markdownlint-enable MD037 -->
 
