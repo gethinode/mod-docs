@@ -16,7 +16,7 @@ The `contact-form` content block renders a contact form powered by a form provid
 
 The following render hook uses automatic form detection by Netlify. The form itself includes fields for name, email address, and a message. It uses a honeypot field and reCAPTCHA v2 to reduce spam submissions.
 
-{{< file file="layouts/_partials/assets/netlify-contact-form-hook.html" >}}
+{{< file file="./layouts/_partials/assets/netlify-contact-form-hook.html" >}}
 
 > [!IMPORTANT]
 > The render hook example sets `data-netlify="false"` to reduce noise on the current website. Set it to `true` to enable automatic form detection by Netlify.
