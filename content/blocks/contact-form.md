@@ -16,7 +16,7 @@ The `contact-form` content block renders a contact form powered by a form provid
 
 The following render hook uses automatic form detection by Netlify. The form itself includes fields for name, email address, and a message. It uses a honeypot field and reCAPTCHA v2 to reduce spam submissions.
 
-{{< file file="./layouts/_partials/assets/netlify-contact-form-hook.html" >}}
+{{< file file="./layouts/_partials/assets/netlify-contact-form-hook.html" show=false >}}
 
 > [!IMPORTANT]
 > The render hook example sets `data-netlify="false"` to reduce noise on the current website. Set it to `true` to enable automatic form detection by Netlify.
@@ -32,6 +32,32 @@ Assign the render hook and callback action using the `hook` and `action` argumen
     preheading: Get in touch
     title: Contact Us
     content: We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+  hook: assets/netlify-contact-form-hook.html
+  action: #!
+  background:
+    color: body-tertiary
+    subtle: false
+```
+
+{{< /example-bookshop >}}
+<!-- markdownlint-enable MD037 -->
+
+### Illustrated Contact Form
+
+You can render an illustrated contact form by assigning a value to `illustration`:
+
+<!-- markdownlint-disable MD037 -->
+{{< example-bookshop lang="bookshop" >}}
+
+```yml
+- _bookshop_name: contact-form
+  heading:
+    preheading: Get in touch
+    title: Contact Us
+    content: We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+  illustration:
+    image: /img/placeholder.png
+    class: d-none d-md-block
   hook: assets/netlify-contact-form-hook.html
   action: #!
   background:
