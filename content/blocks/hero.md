@@ -32,7 +32,7 @@ The `hero` content block renders a page hero, typically at the top of the page. 
 
 ### Illustrated hero
 
-You can include an `illustration` next to the hero heading. Specify `orientation` and `order` to configure the illustration's placement. You can set `cover` to true to display a full-height hero. In horizontal layout, the image fills the width remaining next to the header (in sizes `1` to `12`).
+You can include an `illustration` next to the hero heading. Specify `orientation` and `order` to configure the illustration's placement. You can set `cover` to true to display a full-height hero. In horizontal layout, `heading.width` sets how many Bootstrap columns the heading occupies (1–12); the illustration fills the remaining columns. Use `illustration.width` to further constrain the image within its column (1–12).
 
 <!-- markdownlint-disable MD037 -->
 {{< example-bookshop lang="bookshop" >}}
@@ -46,12 +46,39 @@ You can include an `illustration` next to the hero heading. Specify `orientation
     title: Title
     align: start
     content: Hero content
-    width: 10
+    width: 8
   orientation: horizontal
   order: last
   illustration:
     image: /img/placeholder.png
     ratio: 1x1
+```
+
+{{< /example-bookshop >}}
+<!-- markdownlint-enable MD037 -->
+
+### Image sizing
+
+Use `illustration.width` to constrain the image within its column. In the example below,
+`heading.width: 8` allocates 8 columns to the heading (leaving 4 for the illustration), and
+`illustration.width: 10` renders the image at 10/12 of that 4-column container.
+
+<!-- markdownlint-disable MD037 -->
+{{< example-bookshop lang="bookshop" >}}
+
+```yml
+- _bookshop_name: hero
+  heading:
+    title: Title
+    align: start
+    content: Hero content
+    width: 8
+  orientation: horizontal
+  order: last
+  illustration:
+    image: /img/placeholder.png
+    ratio: 3x2
+    width: 10
 ```
 
 {{< /example-bookshop >}}
