@@ -148,6 +148,23 @@ Use the `orientation` argument to customize the placement of the card's thumbnai
 {{< /example >}}
 <!-- markdownlint-enable MD037 -->
 
+### Link icon
+
+Use the `link-icon` argument to show a hover icon to the right of the card title, signalling
+that the card is clickable. The icon is hidden by default and slides in when the card is
+hovered or focused. It can be enabled globally via `main.cards.linkIcon` in your site
+parameters, and overridden per card-group or individual card using the `link-icon` argument.
+The icon only appears on cards that link to a page or URL and have no explicit button.
+
+<!-- markdownlint-disable MD037 -->
+{{< example lang="hugo" >}}
+{{</* card-group cols="2" gutter="3" header-style="none" link-icon="true" */>}}
+    {{</* card path="button" /*/>}}
+    {{</* card path="link" /*/>}}
+{{</* /card-group */>}}
+{{< /example >}}
+<!-- markdownlint-enable MD037 -->
+
 ## Styling
 
 The file `assets/scss/components/_card.scss` defines the Hinode-specific styling of the `card` shortcode. Check the [Bootstrap documentation](https://getbootstrap.com/docs/5.3/components/card/#css) for additional styling options.
