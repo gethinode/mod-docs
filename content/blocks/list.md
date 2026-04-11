@@ -73,6 +73,44 @@ You can then use `sortable`, `paginate`, and `searchable` to enable inline sorti
 {{< /example-bookshop >}}
 <!-- markdownlint-enable MD037 -->
 
+### Category Filter
+
+Use `filter` to add a button group above the table that shows only rows matching a specific category. Set `filter_col` to the zero-indexed column in your hook's table that contains the category value. An **All** button is always prepended and selected by default.
+
+The filter works alongside `sortable`, `paginate`, and `searchable` — sorting and pagination continue to operate on the filtered result set.
+
+<!-- markdownlint-disable MD037 -->
+{{< example-bookshop lang="bookshop" >}}
+
+```yml
+- _bookshop_name: list
+  heading:
+    title: Recent articles
+    align: start
+  input:
+    section: blog
+    reverse: false
+    sort: date
+  hide_empty: false
+  hook: assets/table-filter-hook
+  filter:
+    - featured
+    - tutorial
+  filter_col: 1
+  sortable: true
+  background:
+    color: body-tertiary
+    subtle: false
+  justify: start
+```
+
+{{< /example-bookshop >}}
+<!-- markdownlint-enable MD037 -->
+
+Define the hook partial in your site's `layouts/_partials` folder. The following example renders a custom Markdown table that includes a `category` column sourced from each page's front matter.
+
+{{< file file="./layouts/_partials/assets/table-filter-hook.html" full=false lang="go-template" >}}
+
 ### Custom List
 
 Customize the list by providing a `hook` partial.
