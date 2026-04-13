@@ -20,6 +20,20 @@ Use the timeline shortcode to show items ordered on a vertical timeline.
 {{< /example >}}
 <!-- markdownlint-enable MD037 -->
 
+### Start layout
+
+{{< release version="v2.7.0" >}}
+
+Use `layout="start"` to render a compact, start-aligned timeline without icons. Each item shows a linked date and a short excerpt. This variant is well suited for sidebar widgets and changelogs. Use `limit` to cap the number of items rendered.
+
+<!-- markdownlint-disable MD037 -->
+{{< example lang="hugo" >}}
+{{</* timeline data="timeline-sample" layout="start" limit="3" */>}}
+{{< /example >}}
+<!-- markdownlint-enable MD037 -->
+
+You can also source timeline items directly from a Hugo content section by passing `section` to the partial (see the [partial arguments](#arguments)). Items are taken from the section's regular pages, sorted by date descending. The `title`, `date`, `description`, and `permalink` of each page are mapped to the timeline fields automatically.
+
 ## Data format
 
 Define a file in the `data` folder that contains the timeline data. The format supports the following attributes:
