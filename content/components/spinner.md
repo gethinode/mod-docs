@@ -56,6 +56,18 @@ Loading...
 {{< /example >}}
 <!-- markdownlint-enable MD037 -->
 
+### Custom label
+
+{{< release version="v2.7.0" >}}
+
+Use the `label` argument to provide a custom visually-hidden accessibility label. When omitted, the label defaults to the i18n key `loading`. The inner body content is ignored when `label` is set.
+
+<!-- markdownlint-disable MD037 -->
+{{< example lang="hugo" >}}
+{{</* spinner color="primary" class="text-center" label="Fetching results…" /*/>}}
+{{< /example >}}
+<!-- markdownlint-enable MD037 -->
+
 ## Styling
 
 Check the [Bootstrap documentation](https://getbootstrap.com/docs/5.3/components/spinners/#css) for additional styling options.

@@ -139,6 +139,70 @@ Take that same HTML, but using `callout` instead:
 {{< /example >}}
 <!-- markdownlint-enable MD037 -->
 
+### Buttons
+
+{{< release version="v2.7.0" >}}
+
+Use `tab-type="buttons"` to render a compact button group instead of a standard nav. Set the `icon` argument on each `nav-item` to display an icon-only button; the `title` is then used as the tooltip and `aria-label`. This variant is well suited for view-toggle controls.
+
+<!-- markdownlint-disable MD037 -->
+{{< example lang="hugo" >}}
+{{</* nav tab-type="buttons" id="buttons-1" */>}}
+  {{</* nav-item title="Grid view" icon="grid" show="true" */>}}
+    Content shown in grid layout.
+  {{</* /nav-item */>}}
+  {{</* nav-item title="List view" icon="list-ul" */>}}
+    Content shown in list layout.
+  {{</* /nav-item */>}}
+{{</* /nav */>}}
+{{< /example >}}
+<!-- markdownlint-enable MD037 -->
+
+### Alignment
+
+{{< release version="v2.7.0" >}}
+
+Use the `align` argument to control the horizontal alignment of the nav controls. Supported values are `start` (default), `center`, and `end`. The argument is ignored when `vertical` is set.
+
+<!-- markdownlint-disable MD037 -->
+{{< example lang="hugo" >}}
+{{</* nav tab-type="pills" align="center" id="align-center-1" */>}}
+  {{</* nav-item title="Nav Item #1" show="true" /*/>}}
+  {{</* nav-item title="Nav Item #2" /*/>}}
+  {{</* nav-item title="Nav Item #3" disabled="true" /*/>}}
+{{</* /nav */>}}
+{{< /example >}}
+<!-- markdownlint-enable MD037 -->
+
+<!-- markdownlint-disable MD037 -->
+{{< example lang="hugo" >}}
+{{</* nav tab-type="pills" align="end" id="align-end-1" */>}}
+  {{</* nav-item title="Nav Item #1" show="true" /*/>}}
+  {{</* nav-item title="Nav Item #2" /*/>}}
+  {{</* nav-item title="Nav Item #3" disabled="true" /*/>}}
+{{</* /nav */>}}
+{{< /example >}}
+<!-- markdownlint-enable MD037 -->
+
+### Controls placement
+
+{{< release version="v2.7.0" >}}
+
+Use `controls-placement="bottom"` to render the nav controls below the tab content instead of above.
+
+<!-- markdownlint-disable MD037 -->
+{{< example lang="hugo" >}}
+{{</* nav tab-type="buttons" controls-placement="bottom" id="placement-1" */>}}
+  {{</* nav-item title="Grid view" icon="grid" show="true" */>}}
+    Content shown in grid layout.
+  {{</* /nav-item */>}}
+  {{</* nav-item title="List view" icon="list-ul" */>}}
+    Content shown in list layout.
+  {{</* /nav-item */>}}
+{{</* /nav */>}}
+{{< /example >}}
+<!-- markdownlint-enable MD037 -->
+
 ### Fill and justify
 
 To proportionately fill all available space with your `.nav-items`, use `.nav-fill`. Notice that all horizontal space is occupied, but not every nav item has the same width.

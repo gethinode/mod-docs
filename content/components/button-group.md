@@ -22,6 +22,21 @@ Use the `button-group` shortcode to display a group of buttons. Add inner `<butt
 {{< /example >}}
 <!-- markdownlint-enable MD037 -->
 
+### Tab list
+
+{{< release version="v2.7.0" >}}
+
+Set `aria-role="tablist"` to use the button group as a Bootstrap tab navigation control. The default role is `group`.
+
+<!-- markdownlint-disable MD037 -->
+{{< example lang="hugo" >}}
+{{</* button-group aria-label="View toggle" aria-role="tablist" */>}}
+  {{</* button color="primary" outline="true" href="#!" */>}}Cards{{</* /button */>}}
+  {{</* button color="primary" outline="true" href="#!" */>}}List{{</* /button */>}}
+{{</* /button-group */>}}
+{{< /example >}}
+<!-- markdownlint-enable MD037 -->
+
 ## Styling
 
 Check the [Bootstrap documentation](https://getbootstrap.com/docs/5.3/components/button-group/#css) for additional styling options.

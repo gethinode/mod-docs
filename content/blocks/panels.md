@@ -115,6 +115,43 @@ Set `tab-type` to `underline` to adjust the panel controls.
 {{< /example-bookshop >}}
 <!-- markdownlint-enable MD037 -->
 
+### Buttons
+
+{{< release version="v2.7.0" >}}
+
+Set `tab-type` to `buttons` to render a compact button group instead of a standard nav. The element titles are used as button labels.
+
+<!-- markdownlint-disable MD037 -->
+{{< example-bookshop lang="bookshop" >}}
+
+```yml
+- _bookshop_name: panels
+  heading:
+    preheading: Preheading
+    title: Heading
+    content: Panels content. It supports multiple lines.
+    align: start
+  background:
+    color: body-tertiary
+    subtle: false
+  width: 12
+  tab_type: buttons
+  ratio: 1x1
+  elements:
+    - title: First Panel
+      image: /img/placeholder.png
+      content: Content of the first panel.
+    - title: Second Panel
+      image: /img/placeholder.png
+      content: Content of the second panel.
+    - title: Third Panel
+      image: /img/placeholder.png
+      content: Content of the third panel.
+```
+
+{{< /example-bookshop >}}
+<!-- markdownlint-enable MD037 -->
+
 ### Callout
 
 Set `tab-type` to `callout` to adjust the panel controls.
