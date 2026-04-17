@@ -7,9 +7,18 @@ description: >-
   dimensions and responsive controls.
 type: docs
 tags: block
+modules: ["preview"]
 ---
 
 ## Overview
+
+> [!IMPORTANT]
+> Since {{< release version="v2.8.0" short="true" link-type="link" >}}, the
+> `preview` block requires the `preview` JS module for device switching and
+> auto-scaling. Add `modules: ["preview"]` to the front matter of any page that
+> uses this block. Sites that use `preview` on many pages can set
+> `integration = "core"` for the preview module in their `params.toml` to load
+> it globally instead.
 
 ### Basic preview
 
