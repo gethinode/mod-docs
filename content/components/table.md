@@ -1,7 +1,7 @@
 ---
 author: Mark Dumay
 title: Table
-date: 2024-08-14
+date: 2026-06-17
 description: Use the table shortcode to make your Markdown table responsive.
 type: docs
 tags: component
@@ -25,9 +25,25 @@ Use the table shortcode to make your markdown table responsive. Responsive table
 {{</* table */>}}
 | #  | Heading | Heading | Heading | Heading | Heading | Heading | Heading | Heading | Heading |
 |----|---------|---------|---------|---------|---------|---------|---------|---------|---------|
-| 1. | cell    | cel     | cel     | cel     | cel     | cel     | cel     | cel     | cel     |
-| 2. | cell    | cel     | cel     | cel     | cel     | cel     | cel     | cel     | cel     |
-| 3. | cell    | cel     | cel     | cel     | cel     | cel     | cel     | cel     | cel     |
+| 1. | cell    | cell    | cell    | cell    | cell    | cell    | cell    | cell    | cell    |
+| 2. | cell    | cell    | cell    | cell    | cell    | cell    | cell    | cell    | cell    |
+| 3. | cell    | cell    | cell    | cell    | cell    | cell    | cell    | cell    | cell    |
+{{</* /table */>}}
+{{< /example >}}
+<!-- markdownlint-enable MD037 MD058 -->
+
+### Table wrapping
+
+Set `wrap=true` to wrap the last column around on smaller viewports.
+
+<!-- markdownlint-disable MD037 MD058 -->
+{{< example lang="markdown" >}}
+{{</* table wrap=true */>}}
+| #  | Heading | Heading | Wrapped                                                               |
+|----|---------|---------|-----------------------------------------------------------------------|
+| 1. | cell    | cell    | Lorem ipsum dolor sit amet, consectetur adipiscing elit.              |
+| 2. | cell    | cell    | Nunc pretium, diam non euismod tincidunt, odio libero feugiat ligula. |
+| 3. | cell    | cell    | Cras eu odio sit amet lectus efficitur accumsan.                      |
 {{</* /table */>}}
 {{< /example >}}
 <!-- markdownlint-enable MD037 MD058 -->
