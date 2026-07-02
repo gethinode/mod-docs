@@ -139,6 +139,35 @@ Set `body_style` to `minimal` to show the title of an article only. The predefin
 {{< /example-bookshop >}}
 <!-- markdownlint-enable MD037 -->
 
+### Magazine layout
+
+Set `layout` to `magazine` to feature the first article as a large card while the
+remaining articles are shown as a compact list beside it. On smaller screens the
+list reflows below the featured article.
+
+<!-- markdownlint-disable MD037 -->
+{{< example-bookshop lang="bookshop" >}}
+
+```yml
+- _bookshop_name: articles
+  heading:
+    title: Blog
+    align: start
+  input:
+    section: blog
+    reverse: false
+    sort: date
+  hide_empty: false
+  layout: magazine
+  more:
+    title: More Blogs
+  padding: 0
+  limit: 4
+```
+
+{{< /example-bookshop >}}
+<!-- markdownlint-enable MD037 -->
+
 ## Arguments
 
 The articles block supports the following arguments:
