@@ -538,4 +538,23 @@ The `mermaid` shortcode supports dark mode and allows creation of a custom Merma
 
 ## Arguments
 
-The shortcode does not support any arguments. Instead, use [Mermaid syntax](https://mermaid.js.org/intro/) to define your diagram or chart.
+The shortcode supports the following optional arguments:
+
+{{< args structure="mermaid" group="shortcode" >}}
+
+For example, overlay pan-and-zoom controls and add a full-screen button — which opens the diagram in a lightbox overlay — handy for large, dense diagrams:
+
+<!-- markdownlint-disable MD037 -->
+{{< example lang="hugo" >}}
+
+{{</* mermaid controls=true fullscreen=true */>}}
+flowchart LR
+    A[Start] --> B{Decision}
+    B -->|Yes| C[Action]
+    B -->|No| D[End]
+{{</* /mermaid */>}}
+
+{{< /example >}}
+<!-- markdownlint-enable MD037 -->
+
+The diagram content itself uses standard [Mermaid syntax](https://mermaid.js.org/intro/).
