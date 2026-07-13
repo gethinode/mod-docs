@@ -53,6 +53,20 @@ Assign a specific identifier to the map by setting the `id` argument. The follow
 {{< /example >}}
 <!-- markdownlint-enable MD037 -->
 
+### Gestures
+
+The map uses cooperative gestures, so scrolling the page never gets trapped by a map in its path. It only responds to a gesture that is unambiguously meant for it.
+
+| Gesture | Result |
+| --- | --- |
+| Wheel | Scrolls the page |
+| `Ctrl`/`⌘` + wheel | Zooms the map |
+| Mouse drag | Pans the map |
+| One finger | Scrolls the page |
+| Two fingers | Pans and pinch-zooms the map |
+
+A gesture that the map ignores briefly shows an overlay explaining how to address the map instead. Override the `mapZoomHint` and `mapDragHint` translations to change its wording.
+
 ## Arguments
 
 The shortcode supports the following arguments:
