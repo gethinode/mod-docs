@@ -21,6 +21,17 @@
 [params.links]
     hugo_docs = "https://gohugo.io/documentation/"
 
+[params.modules.docs.csp]
+    # The preview block reference embeds these sites to demonstrate a live preview. Without
+    # them a consuming site's CSP blocks the iframes and the page shows empty boxes. The
+    # reference also previews google.com on purpose, to show a site that refuses to be framed;
+    # that one falls back to a screenshot and needs no source.
+    frame-src = [
+        "*.wikipedia.org",
+        "www.openstreetmap.org"
+    ]
+
+
 [menus]
 [[menus.sample]]
   name = "Blog"
