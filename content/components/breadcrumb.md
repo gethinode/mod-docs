@@ -17,7 +17,7 @@ Use the `breadcrumb` shortcode to display the current page’s location within t
 The following shortcode displays a breadcrumb for the current page.
 
 <!-- markdownlint-disable MD037 -->
-{{< example lang="hugo" >}}
+{{< example lang="hugo" resize="true" >}}
 {{</* breadcrumb */>}}
 {{< /example >}}
 <!-- markdownlint-enable MD037 -->

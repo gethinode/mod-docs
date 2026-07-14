@@ -19,7 +19,7 @@ Use the `carousel` shortcode to display a carousel of several images, with simil
 Set the `ratio` to `1x1` for a square aspect ratio.
 
 <!-- markdownlint-disable MD037 -->
-{{< example lang="hugo" >}}
+{{< example lang="hugo" resize="true" >}}
 {{</* carousel id="carousel-1x1" ratio="1x1" class="col-sm-12 col-lg-6 mx-auto" */>}}
   {{</* img src="img/placeholder.png" caption="slide 1" */>}}
   {{</* img src="img/placeholder.png" caption="slide 2" */>}}
