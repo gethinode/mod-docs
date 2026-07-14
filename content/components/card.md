@@ -21,7 +21,7 @@ Use the `card` shortcode to display a card that links to a content page. When us
 Use `title`, `thumbnail`, `icon`, and inner content to define the card's content inline. You can add `padding` and `class` attributes to further refine the card's layout.
 
 <!-- markdownlint-disable MD037 -->
-{{< example lang="hugo" >}}
+{{< example lang="hugo" resize="true" >}}
 {{</* card padding="3" class="col-sm-12 col-lg-8 mx-auto mb-3" title="Title"
     icon="fa address-card" */>}}
     This is the `body` of the card. It supports Markdown.

@@ -21,7 +21,7 @@ By default, navs are left-aligned, but you can easily change them to center or r
 Centered with `.justify-content-center`:
 
 <!-- markdownlint-disable MD037 -->
-{{< example lang="hugo" >}}
+{{< example lang="hugo" resize="true" >}}
 {{</* nav class="justify-content-center" */>}}
   {{</* nav-item title="Nav Item #1" show="true" /*/>}}
   {{</* nav-item title="Nav Item #2" /*/>}}

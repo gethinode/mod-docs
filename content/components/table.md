@@ -21,7 +21,7 @@ weight: 330
 Use the table shortcode to make your markdown table responsive. Responsive tables scroll horizontally to improve the layout on smaller screens. The following example illustrates how this works.
 
 <!-- markdownlint-disable MD037 MD058 -->
-{{< example lang="markdown" >}}
+{{< example lang="markdown" resize="true" >}}
 {{</* table */>}}
 | #  | Heading | Heading | Heading | Heading | Heading | Heading | Heading | Heading | Heading |
 |----|---------|---------|---------|---------|---------|---------|---------|---------|---------|

@@ -21,7 +21,7 @@ As an example, the following shortcodes display a centered image with various as
 Set the `ratio` to `1x1` for a square aspect ratio.
 
 <!-- markdownlint-disable MD037 -->
-{{< example lang="hugo" >}}
+{{< example lang="hugo" resize="true" >}}
 {{</* image src="img/placeholder.png" ratio="1x1" wrapper="col-6 mx-auto" */>}}
 {{< /example >}}
 <!-- markdownlint-enable MD037 -->
