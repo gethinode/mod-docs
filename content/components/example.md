@@ -80,6 +80,8 @@ This is a lead paragraph. It stands out from regular paragraphs.
 
 ### Resizable preview
 
+{{< release version="v3.2.0" >}}
+
 Set `resize` to `true` to add a grip to the lower-right corner of the preview. Drag it to narrow the preview and observe how the component reflows.
 
 > [!IMPORTANT]
