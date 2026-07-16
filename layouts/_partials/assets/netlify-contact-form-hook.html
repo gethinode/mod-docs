@@ -41,7 +41,7 @@
         </div>
         <div data-netlify-recaptcha="true"></div>
         <div class="col-12">
-            <button class="btn btn-primary" type="submit">{{ T "formSubmit" }}&nbsp;{{ partial "assets/icon.html" (dict "icon" $formSubmitButton) }}</button>
+            <button class="btn btn-primary" type="submit">{{ T "formSubmit" }}&nbsp;{{ partial "assets/icon.html" (dict "icon" $formSubmitButton "page" $args.page) }}</button>
         </div>
     </form>
 {{ end }}
