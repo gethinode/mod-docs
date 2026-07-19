@@ -81,7 +81,7 @@ Set the `icon` argument to add an icon to the button. Use `order` to determine t
     LinkedIn
 {{< /button */>}}
 
-{{</* button icon="fab linkedin" href="https://linkedin.com" /*/>}}
+{{</* button icon="fab linkedin" label="LinkedIn" href="https://linkedin.com" /*/>}}
 {{< /example >}}
 <!-- markdownlint-enable MD037 -->
 
@@ -122,12 +122,6 @@ Set the `outline` argument to `true` to adjust the style of the button.
 {{</* button color="success" href="#!" button-size="sm" outline="true" */>}}success{{</* /button */>}}
 
 {{</* button color="danger" href="#!" button-size="sm" outline="true" */>}}danger{{</* /button */>}}
-
-{{</* button color="warning" href="#!" button-size="sm" outline="true" */>}}warning{{</* /button */>}}
-
-{{</* button color="info" href="#!" button-size="sm" outline="true" */>}}info{{</* /button */>}}
-
-{{</* button color="light" href="#!" button-size="sm" outline="true" */>}}light{{</* /button */>}}
 
 {{</* button color="dark" href="#!" button-size="sm" outline="true" */>}}dark{{</* /button */>}}
 {{< /example >}}
