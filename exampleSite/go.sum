@@ -54,3 +54,5 @@ github.com/gethinode/mod-docs v1.15.2 h1:ZuOO/M5KyuUNGEoId+rManHG/L3WBboXG9L/ikS
 github.com/gethinode/mod-docs v1.15.2/go.mod h1:ru1w0fHqFocjDIMV0dm40OwhBw5k4UncCS8iO/1S5kI=
 github.com/gethinode/mod-docs v1.15.4 h1:8lkrhuxbg5+XfyW+e0f7XjnIUY9J+kF0IqT7aVNGUZY=
 github.com/gethinode/mod-docs v1.15.4/go.mod h1:ru1w0fHqFocjDIMV0dm40OwhBw5k4UncCS8iO/1S5kI=
+github.com/gethinode/mod-docs v1.15.5 h1:B8tawWKYSbH5Y44K7s+r8AADhpdtWvRVNrJJFFbsN74=
+github.com/gethinode/mod-docs v1.15.5/go.mod h1:ru1w0fHqFocjDIMV0dm40OwhBw5k4UncCS8iO/1S5kI=
