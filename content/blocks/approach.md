@@ -44,6 +44,42 @@ The `approach` block renders a featured image with one or more steps.
 {{< /example-bookshop >}}
 <!-- markdownlint-enable MD037 -->
 
+### Numbered split layout
+
+Set `layout` to `split` to render the heading beside a vertically stacked list of
+elements instead of the card grid. Set `numbered` to `true` to render each
+element's `icon` in a tinted circle badge instead of the plain marker. An
+element without an `icon` falls back to an auto-numbered digit glyph, but that
+fallback only shows a glyph when the site's default icon family ships plain
+digit names (Font Awesome does); families such as Bootstrap Icons need an
+explicit per-element icon like `1-circle`, as used below.
+
+<!-- markdownlint-disable MD037 -->
+{{< example-bookshop lang="bookshop" >}}
+
+```yml
+- _bookshop_name: approach
+  heading:
+    preheading: Preheading
+    title: Heading
+    content: Approach content. It supports multiple lines.
+  layout: split
+  numbered: true
+  elements:
+    - title: First Step
+      icon: 1-circle
+      content: Content of the first step
+    - title: Second Step
+      icon: 2-circle
+      content: Content of the second step
+    - title: Third Step
+      icon: 3-circle
+      content: Content of the third step
+```
+
+{{< /example-bookshop >}}
+<!-- markdownlint-enable MD037 -->
+
 ## Arguments
 
 The content block supports the following arguments:
