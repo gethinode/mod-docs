@@ -44,6 +44,36 @@ The `approach` block renders a featured image with one or more steps.
 {{< /example-bookshop >}}
 <!-- markdownlint-enable MD037 -->
 
+### Numbered split layout
+
+Set `layout` to `split` to render the heading beside a vertically stacked list of
+elements instead of the card grid. Set `numbered` to `true` to auto-number the
+elements with a digit badge instead of a per-element icon; the digit resolves
+through the site's configured Font Awesome family.
+
+<!-- markdownlint-disable MD037 -->
+{{< example-bookshop lang="bookshop" >}}
+
+```yml
+- _bookshop_name: approach
+  heading:
+    preheading: Preheading
+    title: Heading
+    content: Approach content. It supports multiple lines.
+  layout: split
+  numbered: true
+  elements:
+    - title: First Step
+      content: Content of the first step
+    - title: Second Step
+      content: Content of the second step
+    - title: Third Step
+      content: Content of the third step
+```
+
+{{< /example-bookshop >}}
+<!-- markdownlint-enable MD037 -->
+
 ## Arguments
 
 The content block supports the following arguments:
