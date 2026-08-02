@@ -13,7 +13,10 @@ tags: block
 
 ### Basic hero
 
-The `hero` content block renders a page hero, typically at the top of the page. Set `cover` to true to display a full-page hero.
+The `hero` content block renders a page hero, typically at the top of the page. Set `cover` to true to display a tall hero that fills most of the viewport.
+
+> [!NOTE]
+> A cover hero is `88vh` tall by default, not the full `100vh`. The remaining sliver deliberately reveals the top of the next section, hinting that the page continues below the fold. On extra large and tall viewports the height is further capped at `1024px`. Both values are site settings — see the [layout configuration](https://gethinode.com/docs/configuration/layout/) for `main.sectionHeight` and `main.maxSectionHeight`.
 
 <!-- markdownlint-disable MD037 -->
 {{< example-bookshop lang="bookshop" >}}
@@ -32,7 +35,7 @@ The `hero` content block renders a page hero, typically at the top of the page. 
 
 ### Illustrated hero
 
-You can include an `illustration` next to the hero heading. Specify `orientation` and `order` to configure the illustration's placement. You can set `cover` to true to display a full-height hero. In horizontal layout, `heading.width` sets how many Bootstrap columns the heading occupies (1–12); the illustration fills the remaining columns. Use `illustration.width` to further constrain the image within its column (1–12).
+You can include an `illustration` next to the hero heading. Specify `orientation` and `order` to configure the illustration's placement. Setting `cover` to true raises the section to the cover height described above. It also keeps the illustration within the height of its column, so a tall or portrait image is scaled down to fit instead of stretching the hero past the cover height. Landscape images are unaffected, as their width is already the limiting dimension. In horizontal layout, `heading.width` sets how many Bootstrap columns the heading occupies (1–12); the illustration fills the remaining columns. Use `illustration.width` to further constrain the image within its column (1–12).
 
 <!-- markdownlint-disable MD037 -->
 {{< example-bookshop lang="bookshop" >}}
