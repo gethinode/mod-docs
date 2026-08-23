@@ -86,6 +86,51 @@ As an example, the following shortcode displays a responsive table that is `sear
 {{< /example >}}
 <!-- markdownlint-enable MD037 MD058 -->
 
+### Filtering
+
+{{< release version="v2.5.0" >}}
+
+Set `filter` to a list of categories to render a button group above the table. Each value becomes a button, an `All` button is prepended, and selecting one keeps the rows whose category column contains that value. Matching is case-insensitive, and the filter composes with searching, sorting, and paging rather than replacing them.
+
+Use `filter-col` to choose the column to match against. It is zero-indexed and defaults to `1`, so the second column. Note that the column position is what identifies it — reordering the columns of a filtered table means updating `filter-col` to match.
+
+<!-- markdownlint-disable MD037 MD058 -->
+{{< example lang="markdown" >}}
+{{</* table filter="fruit,vegetable" filter-col="1" sortable="true" */>}}
+| Item     | Type      | Origin      |
+|----------|-----------|-------------|
+| Apple    | fruit     | Belgium     |
+| Broccoli | vegetable | Spain       |
+| Cherry   | fruit     | Türkiye     |
+| Leek     | vegetable | Netherlands |
+{{</* /table */>}}
+{{< /example >}}
+<!-- markdownlint-enable MD037 MD058 -->
+
+Use `justify` to align the filter controls, which are positioned independently of the table itself. The table always spans the full width of its container.
+
+#### Responsive filter controls
+
+{{< release version="v3.22.0" >}}
+
+A button group of more than a few categories outgrows a narrow viewport. Set `filter-responsive=true` to replace it with a dropdown below the site's main breakpoint; at wider widths the button group renders as before. Narrow the window past the breakpoint to see the control change.
+
+The dropdown and the button group stay in step, so switching between them never changes which category is selected. The argument defaults to `false`, and has no effect when the site's main breakpoint is `xs`.
+
+<!-- markdownlint-disable MD037 MD058 -->
+{{< example lang="markdown" >}}
+{{</* table filter="fruit,vegetable,herb,grain,nut" filter-col="1" filter-responsive="true" sortable="true" */>}}
+| Item     | Type      | Origin      |
+|----------|-----------|-------------|
+| Apple    | fruit     | Belgium     |
+| Broccoli | vegetable | Spain       |
+| Basil    | herb      | Italy       |
+| Barley   | grain     | France      |
+| Almond   | nut       | Spain       |
+{{</* /table */>}}
+{{< /example >}}
+<!-- markdownlint-enable MD037 MD058 -->
+
 ## Configuration
 
 With [Simple Datatables](https://github.com/gethinode/mod-simple-datatables) enabled, add the attribute `data-table` to the class of any Markdown table. The following arguments are supported:
