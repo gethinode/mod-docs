@@ -48,6 +48,30 @@ Set `wrap=true` to wrap the last column around on smaller viewports.
 {{< /example >}}
 <!-- markdownlint-enable MD037 MD058 -->
 
+#### Column groups
+
+{{< release version="v3.23.0" >}}
+
+Folding one column is not always enough. A table with many columns still scrolls sideways on a phone, because the remaining columns are each narrow but there are too many of them. Set `wrap-cols` to a comma-separated column count per rendered row to fold a record into groups instead, so it stacks as a card.
+
+`2,4,1` across seven columns keeps the first two on the lead row, folds the next four onto a row of their own, and gives the last the final row. Only the first group keeps one cell per column, so it alone stays aligned down the table; every later group lays its values out in equal columns, dropping to as many as fit the viewport.
+
+The counts must be positive and sum to the table's column count. A list that does not — one left behind when a column was added, say — is refused, and the table falls back to wrapping the last column only rather than folding on stale boundaries. `wrap-cols` requires `wrap`.
+
+The folded headings are hidden, so the values carry no label. That suits self-describing content such as badges, which is why the grouping is yours to choose.
+
+<!-- markdownlint-disable MD037 MD058 -->
+{{< example lang="markdown" >}}
+{{</* table wrap="true" wrap-cols="2,4,1" class="table-striped" */>}}
+| #  | Name    | Category  | Plateau   | Status  | Role   | Description                                            |
+|----|---------|-----------|-----------|---------|--------|--------------------------------------------------------|
+| 1. | alpha   | Database  | launch    | Shipped | both   | Lorem ipsum dolor sit amet, consectetur adipiscing.    |
+| 2. | bravo   | Warehouse | plateau-1 | Planned | target | Nunc pretium, diam non euismod tincidunt, odio libero. |
+| 3. | charlie | File      | launch    | Shipped | source | Cras eu odio sit amet lectus efficitur accumsan.       |
+{{</* /table */>}}
+{{< /example >}}
+<!-- markdownlint-enable MD037 MD058 -->
+
 ### Data table
 
 {{< release version="v0.24.13" >}}
