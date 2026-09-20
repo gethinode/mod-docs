@@ -90,9 +90,10 @@ Use the `header-style` argument to customize the header of the card.
 
 <!-- markdownlint-disable MD037 -->
 {{< example lang="hugo" >}}
-{{</* card-group cols="2" gutter="3" orientation="none" */>}}
+{{</* card-group cols="3" gutter="3" orientation="none" */>}}
     {{</* card path="button" header-style="full"  /*/>}}
     {{</* card path="button" header-style="publication" /*/>}}
+    {{</* card path="button" header-style="date"  /*/>}}
     {{</* card path="button" header-style="tags" /*/>}}
     {{</* card path="button" header-style="none" /*/>}}
 {{</* /card-group */>}}
@@ -120,9 +121,10 @@ Use the `footer-style` argument to customize the contents of the card.
 
 <!-- markdownlint-disable MD037 -->
 {{< example lang="hugo" >}}
-{{</* card-group cols="2" gutter="3" header-style="none" orientation="none" */>}}
+{{</* card-group cols="3" gutter="3" header-style="none" orientation="none" */>}}
     {{</* card path="button" footer-style="full" /*/>}}
     {{</* card path="button" footer-style="publication" /*/>}}
+    {{</* card path="button" footer-style="date" /*/>}}
     {{</* card path="button" footer-style="tags" /*/>}}
     {{</* card path="button" footer-style="none" /*/>}}
 {{</* /card-group */>}}
