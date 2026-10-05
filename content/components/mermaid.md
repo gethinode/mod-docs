@@ -494,6 +494,8 @@ The [Mermaid module](https://github.com/gethinode/mod-mermaid) supports the foll
 | `mermaid.elk`    | false     | If set, installs the layout engine for Mermaid based on the ELK layout engine. |
 | `mermaid.layout` | `dagre`   | Defines which layout algorithm to use for rendering Mermaid diagrams. The default algorithm is `dagre`. Additional options are available when `mermaid.elk` is enabled, see the table below. |
 | `mermaid.look`   | `classic` | Defines the default look for Mermaid diagrams, either `classic` or `handDrawn`. |
+| `mermaid.fullscreen` | false | Site-wide default for the `fullscreen` argument of the shortcode and the fenced codeblock: `true`, `false`, or `auto`. A diagram's own `fullscreen` argument takes precedence. |
+| `mermaid.autoThreshold` | 10 | Number of significant source lines (excluding the diagram-type header, blank lines, and `%%` comments) a diagram must reach before `fullscreen="auto"` adds the full-screen button. |
 <!-- markdownlint-enable MD060 -->
 
 The following table defines the available layout algorithms. The `elk` values require installation of the ELK layout engine (set `mermaid.elk` to `true`).
@@ -542,7 +544,13 @@ The shortcode supports the following optional arguments:
 
 {{< args structure="mermaid" group="shortcode" >}}
 
-For example, overlay pan-and-zoom controls and add a full-screen button — which opens the diagram in a lightbox overlay — handy for large, dense diagrams:
+The `controls` and `fullscreen` arguments decide how readers interact with a diagram:
+
+- **Neither** renders a static diagram.
+- **`controls` only** overlays reset and zoom buttons on the inline diagram. Readers drag to pan and hold Ctrl or Cmd while scrolling to zoom, so a plain scroll still moves the page. On touch devices, two fingers pan and pinch.
+- **`fullscreen`**, with or without `controls`, turns the inline diagram into a preview that shows only the full-screen button. Clicking the button, or anywhere on the diagram, opens it in a lightbox overlay that carries the reset and zoom buttons. In the overlay, readers drag to pan and scroll to zoom without a modifier key.
+
+For example, add a full-screen button — handy for large, dense diagrams:
 
 <!-- markdownlint-disable MD037 -->
 {{< example lang="hugo" >}}
