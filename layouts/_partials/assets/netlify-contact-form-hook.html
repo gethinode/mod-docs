@@ -27,17 +27,23 @@
         <div class="hidden">
             <label>{{ T "formBotField" }}: <input name="bot-field" type="text" /></label>
         </div>        
-        <div class="col-md-12 form-floating">
-            <input id="inputName" type="text" class="form-control" placeholder="{{ T "formName" }}*" aria-label="{{ T "formName" }}" name="name" required>
-            <label for="inputName">{{ T "formName" }}*</label>
+        <div class="col-md-12">
+            <div class="form-floating">
+                <input id="inputName" type="text" class="form-control" placeholder="{{ T "formName" }}*" aria-label="{{ T "formName" }}" name="name" required>
+                <label for="inputName">{{ T "formName" }}*</label>
+            </div>
         </div>
-        <div class="col-md-12 form-floating">
-            <input id="inputEmail" type="email" class="form-control" placeholder="{{ T "formEmail" }}*" aria-label="{{ T "formEmail" }}" name="email" required>
-            <label for="inputEmail">{{ T "formEmail" }}*</label>
+        <div class="col-md-12">
+            <div class="form-floating">
+                <input id="inputEmail" type="email" class="form-control" placeholder="{{ T "formEmail" }}*" aria-label="{{ T "formEmail" }}" name="email" required>
+                <label for="inputEmail">{{ T "formEmail" }}*</label>
+            </div>
         </div>
-        <div class="col-md-12 form-floating">
-            <textarea id="inputMessage" class="form-control" placeholder="{{ T "formMessage" }}*" aria-label="{{ T "formMessage" }}" name="message" required></textarea>
-            <label for="inputMessage">{{ T "formMessage" }}*</label>
+        <div class="col-md-12">
+            <div class="form-floating">
+                <textarea id="inputMessage" class="form-control" placeholder="{{ T "formMessage" }}*" aria-label="{{ T "formMessage" }}" name="message" required></textarea>
+                <label for="inputMessage">{{ T "formMessage" }}*</label>
+            </div>
         </div>
         <div data-netlify-recaptcha="true"></div>
         <div class="col-12">
