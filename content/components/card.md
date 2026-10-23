@@ -61,6 +61,20 @@ Set `href` and `button-label` to reference a static url with a button.
 {{< /example >}}
 <!-- markdownlint-enable MD037 -->
 
+### Subtitle and highlight
+
+Use `subtitle` and `highlight` to add two short lines between the card's title and its body, such as a tagline and a price. Both arguments support inline Markdown. Set `align-rows` on a {{< link "card-group" >}}card group{{< /link >}} to line up these parts across the cards in a row.
+
+<!-- markdownlint-disable MD037 -->
+{{< example lang="hugo" >}}
+{{</* card padding="3" class="col-sm-12 col-lg-8 mx-auto" title="Team"
+    subtitle="For growing teams that need *shared* workspaces."
+    highlight="**€9** per user per month" icon="fas users" */>}}
+    This is the `body` of the card. It supports Markdown.
+{{</* /card */>}}
+{{< /example >}}
+<!-- markdownlint-enable MD037 -->
+
 ### Colored cards
 
 Use the `color` argument to set the background color of the card. As an example, the following shortcodes display a plain card for each available color. The cards are embedded in a grid. The final two cards with the color `body` and `body-tertiary` are color-mode aware.

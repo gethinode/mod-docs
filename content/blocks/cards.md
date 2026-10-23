@@ -149,6 +149,60 @@ Set the `icon` attribute of each `element` to an icon to render illustrated card
 {{< /example-bookshop >}}
 <!-- markdownlint-enable MD037 -->
 
+### Aligned rows
+
+Set `align_rows` to `true` to line up the parts of the cards in each row: the image or icon, the title, the subtitle, the highlight, the content, and the button of an element with a `link`. Add a `subtitle` and a `highlight` to each element to show a tagline and a key figure between the title and the content. Both fields support inline Markdown.
+
+Alignment applies to stacked cards only, so set `orientation` to `stacked`. It has no effect on horizontal cards. Without an explicit `orientation`, the block shows horizontal cards on small screens, where alignment does not apply. Alignment uses CSS subgrid; browsers without subgrid support show the regular layout.
+
+<!-- markdownlint-disable MD037 -->
+{{< example-bookshop lang="bookshop" >}}
+
+```yml
+- _bookshop_name: cards
+  heading:
+    preheading: Pricing
+    title: Aligned rows
+    content: The titles, subtitles, highlights and content of the cards line up.
+    align: start
+  background:
+    color: body-tertiary
+    subtle: false
+  orientation: stacked
+  align_rows: true
+  icon_style: text-primary
+  align: start
+  padding: 0
+  elements:
+    - title: Starter
+      icon: fas seedling
+      subtitle: For individuals.
+      highlight: "**€0** per month"
+      content: |
+        - One project
+        - Community support
+    - title: Team
+      icon: fas users
+      subtitle: For growing teams that share their projects.
+      highlight: "**€9** per user per month"
+      content: |
+        - Unlimited projects
+        - Shared workspaces
+        - Priority support
+    - title: Enterprise
+      icon: fas building
+      subtitle: >-
+        For organizations with *custom* needs, such as single sign-on and
+        audits.
+      highlight: "**Custom pricing**"
+      content: |
+        - Dedicated account manager
+        - Custom contracts
+```
+
+{{< /example-bookshop >}}
+<!-- markdownlint-enable MD037 -->
+
 ## Arguments
 
 The content block supports the following arguments:
