@@ -34,9 +34,9 @@ Use the `card-group` shortcode to display a group of cards. Add inner `<card>` e
 
 ## Aligned rows
 
-Set `align-rows` to `true` to line up the parts of the cards in each visual row. Every card is split into six bands: the image or icon, the title, the subtitle, the highlight, the body, and the footer. Each band is as tall as its tallest entry in the row, so a long subtitle in one card pushes the highlights of all its neighbours down by the same amount. A card that lacks a part keeps an empty band, so its other parts stay on their neighbours' lines.
+Set `align-rows` to `true` to line up the parts of the cards in each visual row. Every card is split into six bands: the image or icon, the title, the subtitle, the highlight, the body, and the footer. Each band is as tall as its tallest entry in the row, so a long subtitle in one card pushes the highlights of its neighbours down to the same line. A card that lacks a part keeps an empty band, so its other parts stay on their neighbours' lines.
 
-Alignment applies to stacked groups only, which is the default `orientation`. It has no effect for any other orientation, or when `scroll` or `bento` is set. The `spacer` and `separator` arguments are not rendered in an aligned group. Alignment uses CSS subgrid; browsers without subgrid support show the regular layout.
+Alignment applies to stacked groups only, which is the default `orientation`. It has no effect for any other orientation, or when `scroll` or `bento` is set. The spacer and separator elements are not rendered when rows are aligned. Alignment uses CSS subgrid; browsers without subgrid support show the regular layout.
 
 <!-- markdownlint-disable MD037 -->
 {{< example lang="hugo" >}}
