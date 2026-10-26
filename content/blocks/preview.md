@@ -148,7 +148,7 @@ The preview component works well with embeddable content like [OpenStreetMap](ht
 
 ### Blocked URL with fallback image
 
-When the target URL sets `X-Frame-Options` or `Content-Security-Policy: frame-ancestors 'none'`, Hugo detects this at build time via a HEAD request and renders the error overlay server-side. Provide an `image` argument to display a representative screenshot in place of the blocked iframe. The warning alert with a direct link is still shown below the image.
+When Hugo's build-time checks find that a target's response policy refuses framing, or this site's published `frame-src` policy excludes the target, the block renders its fallback. For `X-Frame-Options: SAMEORIGIN`, the target is allowed when it shares this site's origin; `frame-ancestors` takes precedence when present. Provide an `image` argument to display a representative screenshot in place of the blocked iframe. The warning alert with a direct link is still shown below the image.
 
 Set `show_fallback: true` in Bookshop content (or `show-fallback: true` when calling the Hugo partial) to force the fallback explicitly — useful when the build cannot verify a target URL, or when you know it cannot be embedded on your site.
 
@@ -228,7 +228,7 @@ This allows embedding localhost sites during development while maintaining secur
 
 ### Hugo security configuration
 
-Build-time embedding detection issues a HEAD request to each preview URL during the build. Hugo's default security policy only allows `GET` and `POST` methods. Add the following to your site's `config/_default/hugo.toml` to enable HEAD requests:
+When the build checks a remote preview URL, it tries HEAD first and retries with GET if Hugo rejects that method. Hugo's default security policy only allows `GET` and `POST` methods, so allowing HEAD avoids the retry. Add the following to your site's `config/_default/hugo.toml`:
 
 ```toml
 [security]
@@ -237,11 +237,11 @@ Build-time embedding detection issues a HEAD request to each preview URL during 
     urls = ['.*']
 ```
 
-Without this setting, the HEAD requests are silently blocked and embedding restrictions are not detected. Use `show_fallback: true` to force the fallback explicitly — it is not affected by this setting.
+If both requests fail, Hugo warns that it could not verify the target's framing headers and continues checking this site's `frame-src` policy. Use `show_fallback: true` to force the fallback explicitly — it is not affected by this setting.
 
 ### Embedding restrictions
 
-Many websites prevent iframe embedding using `X-Frame-Options` or `Content-Security-Policy` response headers. For remote URLs, Hugo requests response headers at build time, trying HEAD and then GET if needed. It checks the target's framing policy against this site's configured base URL and checks this site's `frame-src` policy. Site-relative URLs are resolved against the base URL for the `frame-src` check; Hugo does not fetch their headers. The target-header behavior is:
+Many websites prevent iframe embedding using `X-Frame-Options` or `Content-Security-Policy` response headers. When this site's base URL has a host and the block has not already selected its fallback, Hugo checks each target URL. For URLs with a host, it requests response headers, trying HEAD and then GET if needed, and compares the target's framing policy with this site's configured origin. Site-relative URLs are resolved against the base URL and skip the remote header request. After a successful header check, or a warning when the request fails, Hugo checks the URL against this site's published `frame-src` policy, when one exists. The block shows its fallback when either policy refuses framing. The table describes target response headers when they are available:
 
 | Response header | Build-time action |
 | --- | --- |
@@ -251,7 +251,7 @@ Many websites prevent iframe embedding using `X-Frame-Options` or `Content-Secur
 | `Content-Security-Policy: frame-ancestors` allowing this site's configured origin | No fallback from the target policy |
 | No relevant target headers | No fallback from the target policy; this site's `frame-src` is still checked |
 
-When a remote header request fails, Hugo warns and renders the frame; use `show_fallback: true` to force the fallback when you know embedding will fail.
+When a remote header request fails, Hugo warns and continues to the `frame-src` check; that check may still select the fallback. Use `show_fallback: true` when you know embedding will fail.
 
 **Best practices:**
 
@@ -361,13 +361,13 @@ Set `items` to an ordered list of views. Every item needs a `title` and `url`; o
 
 ### Runtime loading, fallback, and readiness
 
-The active view loads by default; views load when first shown. `activation: click` adds an explicit visitor action before any view loads. `load_timeout` sets the per-navigation deadline in seconds (default 15), starting when a waiting view enters the viewport. On timeout, the frame shows an alert and a link to open the target; a supplied poster remains behind the alert. Without a poster, the alert appears against the frame background. A page-relative URL is resolved on this site.
+The active view loads by default; views load when first shown. `activation: click` adds an explicit visitor action before any view loads. `load_timeout` sets the per-navigation deadline in seconds (default 15), starting when a waiting view enters the viewport. On timeout, the frame shows an alert and a link to open the target; a supplied poster remains behind the alert. Without a poster, the alert appears against the frame background. With an empty `ready_message`, the initial frame whose `src` is in the markup has no deadline because it may load before the script starts; navigations started later by the script are timed. A page-relative URL is resolved on this site.
 
 The iframe `load` event does not prove the target is healthy: browsers can fire it for an HTTP 503 response or a refused connection. With the default empty `ready_message`, load ends the wait. To wait for positive readiness, set `ready_message` to a token shared with a cooperating framed page. For example, the self-contained [readiness example](https://github.com/gethinode/mod-blocks/blob/main/exampleSite/content/components/preview-ready.md) uses `example:ready`. A child page can announce readiness after its DOM is ready and answer only requests from its own parent that contain the matching token. The preview requests a reply when the frame loads, so an early announcement can be recovered. The example's Ready page replies; its Silent page does not.
 
-In readiness mode, a view stays busy behind its poster and its frame cannot take focus until the current frame acknowledges the exact token or the deadline expires. A late acknowledgement from the current frame can recover the view. Messages from another frame, a previous navigation, or with a different token do not count. Changing items or showing a view for the first time starts a new wait. This is a one-time navigation check, not ongoing health monitoring; behavior after the framed app navigates internally belongs to that app. Keep the token non-sensitive: messages must not carry visitor data, privileged actions, URLs, or HTML.
+When a live view loads in readiness mode, it stays busy behind its poster and its frame cannot take focus until the current frame acknowledges the exact token or the deadline expires. With click activation, before the poster button is pressed, item changes update the selected poster and item heading, when supplied, without requesting a frame or starting a wait. After activation, each item or device navigation gets its own wait. A late acknowledgement from the current frame can recover the view. Messages from another frame, a previous navigation, or with a different token do not count. This is a one-time navigation check, not ongoing health monitoring; behavior after the framed app navigates internally belongs to that app. Keep the token non-sensitive: messages must not carry visitor data, privileged actions, URLs, or HTML.
 
-The build-time fallback remains distinct from runtime failure. When Hugo detects that a target refuses framing, the block renders its fallback without a waiting or failed runtime state. For remote URLs, the build requests response headers and checks framing restrictions when it can; a failed request produces a warning and leaves the frame rendered. Site-relative URLs resolve against the site's base URL and are checked against its `frame-src` policy without a remote header request.
+The build-time fallback remains distinct from runtime failure: a block that shows its fallback has no waiting or failed runtime state. The build-time checks run only when this site's base URL has a host and a fallback has not already been selected. A failed remote-header request produces a warning, then the site's `frame-src` policy is still checked when one is published. Site-relative URLs resolve against the base URL and skip the remote header request.
 
 ### Open link and buttons
 
