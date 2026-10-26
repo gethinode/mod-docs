@@ -61,7 +61,7 @@ Regenerate the development and production server headers:
 pnpm run build:headers
 ```
 
-This updates `config/_default/server.toml` and `netlify.toml`. Commit the policy and generated headers, restart the local server if running, and deploy the changes to Netlify. See [Server headers](/docs/advanced-settings/server-headers/) for the header-generation setup.
+This updates `config/_default/server.toml` and `netlify.toml`. Commit the policy and generated headers, restart the local server if running, and deploy the changes to Netlify. See [Server headers](https://gethinode.com/docs/advanced-settings/server-headers/) for the header-generation setup.
 
 If the CAPTCHA does not appear, check the browser console for CSP violations. Netlify rejects submissions without a valid CAPTCHA response. A nonce added by a plugin does not bypass an enforced CSP that blocks the script; a report-only policy does not relax the enforced policy.
 
