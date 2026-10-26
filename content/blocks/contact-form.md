@@ -21,7 +21,7 @@ The following render hook uses automatic form detection by Netlify. The form its
 > [!IMPORTANT]
 > The render hook example sets `data-netlify="false"` to reduce noise on the current website. Set it to `true` to enable automatic form detection by Netlify.
 
-Assign the render hook and callback action using the `hook` and `action` arguments:
+Assign the render hook and callback action using the `hook` and `action` arguments. For a live form, replace the demo action `#!` with the path to your confirmation page, such as `/thank-you/` or `/nl/bedankt/`. Use a path starting with `/` to avoid resolving it relative to the contact page.
 
 <!-- markdownlint-disable MD037 -->
 {{< example-bookshop lang="bookshop" >}}
@@ -41,6 +41,29 @@ Assign the render hook and callback action using the `hook` and `action` argumen
 
 {{< /example-bookshop >}}
 <!-- markdownlint-enable MD037 -->
+
+#### Allowing reCAPTCHA in the Content Security Policy
+
+Hinode's default Content Security Policy (CSP) does not allow all resources required by reCAPTCHA. Add the following policy to your site's `config/_default/params.toml`:
+
+```toml
+[modules.recaptcha.csp]
+    script-src = ["www.google.com", "www.gstatic.com"]
+    frame-src = ["www.google.com", "recaptcha.google.com"]
+    connect-src = ["www.google.com"]
+```
+
+These sources allow the scripts, frames, and connections required by [Google's reCAPTCHA CSP guidance](https://developers.google.com/recaptcha/docs/faq#im-using-content-security-policy-csp-on-my-website-how-can-i-configure-it-to-work-with-recaptcha). Use hostnames in this configuration; the CSP module does not support source values containing URL paths.
+
+Regenerate the development and production server headers:
+
+```sh
+pnpm run build:headers
+```
+
+This updates `config/_default/server.toml` and `netlify.toml`. Commit the policy and generated headers, restart the local server if running, and deploy the changes to Netlify. See [Server headers](/docs/advanced-settings/server-headers/) for the header-generation setup.
+
+If the CAPTCHA does not appear, check the browser console for CSP violations. Netlify rejects submissions without a valid CAPTCHA response. A nonce added by a plugin does not bypass an enforced CSP that blocks the script; a report-only policy does not relax the enforced policy.
 
 ### Illustrated Contact Form
 
