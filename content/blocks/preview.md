@@ -22,7 +22,7 @@ modules: ["preview"]
 
 ### Basic preview
 
-The `preview` content block renders a live URL preview in an iframe with device switcher controls. By default, it displays in desktop view.
+The `preview` content block renders a live URL preview in an iframe with device switcher controls. By default it uses `activation: load`, offers desktop, tablet, and mobile views, enables controls, and uses the legacy `frame: none` layout. Those defaults preserve existing markup and behavior when the new options are omitted.
 
 <!-- markdownlint-disable MD037 -->
 {{< example-bookshop lang="bookshop" >}}
@@ -353,6 +353,73 @@ Set `devices` to the subset of device views to offer, in the order their control
 
 Set `activation: click` to show a poster and defer navigation until a visitor activates the preview. The active view loads on activation; other views load the first time they are shown. A view without its own poster uses the desktop poster. Set `mode: true` to use the matching light or dark poster suffix when available.
 
+### Load when visible
+
+Set `activation: visible` to start navigation for the shown device view when the preview actually enters the viewport. It first waits for the parent page to finish loading, then gives the browser an idle opportunity, with a 600ms timeout. This timeout bounds the wait for idle; it is not a required delay. If the preview leaves the viewport before then, it does not navigate; it waits until the preview enters again and becomes eligible. The observer and idle callback have guarded fallbacks when those browser APIs are unavailable. This delays navigation; it does not preload the page or promise zero cost. It also does not monitor the page after its initial navigation.
+
+```yml
+url: /example/
+activation: visible
+```
+
+### Keep narrow screens static
+
+Set `mobile_static: true` (default `false`) to keep the preview static below 1024px. At those widths the page renders a poster image, when supplied, or a neutral background. The component makes no embedded-page navigation request there, including after scrolling, resizing, or waiting. Returning to desktop follows the configured `activation` mode; `click` still requires a new click. This option does not add a tablet layout.
+
+```yml
+url: /example/
+activation: visible
+mobile_static: true
+```
+
+### Window frame
+
+Set `frame: window` (default `none`) to contain the desktop page in its native 1440×900 (16:10) viewport, with title-bar chrome. After measuring navigation and title-bar height, the complete window fits the available width and height with 24px above and below it. It stays centered in the existing full-width section, including when a short viewport scales the window down. Its contents are never cropped. `frame_title` (default empty) supplies the optional title and, for a single URL, the iframe's accessible title. The title bar is outside the 1440×900 page viewport. Tablet and mobile keep their native 820×1180 and 402×874 viewports.
+
+With `open_link: true`, the window has one open action in its top-right title bar, including while static or showing a fallback. For a single URL, `open_url` (default empty) takes priority over `url`. Items require a `url`; the shown item's `open_url` takes priority over its own `url`. Item titles remain the titles of their own frames.
+
+```yml
+url: /preview-demo/ready/
+frame: window
+frame_title: Example workspace
+open_link: true
+controls: false
+devices: [desktop]
+activation: visible
+mobile_static: true
+ready_message: example:ready
+mode: true
+poster:
+  desktop: img/poster-desktop.png
+```
+
+See the [window preview example](https://github.com/gethinode/mod-blocks/blob/main/exampleSite/content/components/preview-window.md) for the complete runnable source. It uses a local child page and stays static below 1024px.
+
+### Readiness with a local child page
+
+`ready_message` can wait for an exact reply from a page that you control. The [readiness example](https://github.com/gethinode/mod-blocks/blob/main/exampleSite/content/components/preview-ready.md) uses `example:ready`: its Ready child announces after the DOM is ready and answers requests only from its own parent, while its Silent child never announces. The example demonstrates the matching request/reply protocol without treating readiness as an ongoing health check.
+
+### Window with item-specific links
+
+When a window contains `items`, its title-bar action follows the shown item. Each item requires a `url`; its own `open_url` wins over that URL. Legacy previews without `frame: window` keep the open link below the frame.
+
+### Keep the existing defaults
+
+Omitting the new options keeps the existing load behavior and legacy frame. `activation` defaults to `load`; `frame_title` and `open_url` default to empty, and `mobile_static` defaults to `false`. All three device views and the controls remain enabled by default. `activation: load` can still put the selected URL in the initial HTML; that initial navigation has no `load_timeout` deadline when `ready_message` is empty. Navigations started later by the script use the deadline.
+
+```yml
+url: https://example.org/
+```
+
+This keeps the current load activation, all three device views, controls, and legacy frame. The six focused producer pages cover:
+
+- [Basic preview](https://github.com/gethinode/mod-blocks/blob/main/exampleSite/content/components/preview.md)
+- [Click activation](https://github.com/gethinode/mod-blocks/blob/main/exampleSite/content/components/preview-click.md)
+- [Device selection](https://github.com/gethinode/mod-blocks/blob/main/exampleSite/content/components/preview-devices.md)
+- [Items](https://github.com/gethinode/mod-blocks/blob/main/exampleSite/content/components/preview-items.md)
+- [Readiness](https://github.com/gethinode/mod-blocks/blob/main/exampleSite/content/components/preview-ready.md)
+- [Window, visible activation, and static narrow view](https://github.com/gethinode/mod-blocks/blob/main/exampleSite/content/components/preview-window.md)
+
 ### Switch between items
 
 Set `items` to an ordered list of views. Every item needs a `title` and `url`; optional `open_url`, `poster`, and `heading` values customize its open link, poster, and heading. Items replace `url` (when both are set, the first item URL is used). Switching items keeps the selected device, and only the shown item's URL is loaded in the shown device. Item posters fall back from the selected device to that item's desktop poster, then to the block poster.
@@ -371,7 +438,7 @@ The build-time fallback remains distinct from runtime failure: a block that show
 
 ### Open link and buttons
 
-Set `open_link: true` to show a link under the frame. It opens the current item's `open_url`, or its `url`; without items it opens the block `url`. Set `links` to render additional buttons under the frame, each with a `title` and `url`. A build-time fallback does not render the open link.
+Set `open_link: true` to show an open link. With the default `frame: none`, it appears under the frame and opens the current item's `open_url`, or its `url`; without items it opens the block `open_url`, or its `url`. With `frame: window`, it appears in the title bar. Links open in a new tab with `noopener`. Set `links` to render additional buttons under the frame, each with a `title` and `url`. A window's title-bar action remains available with a static poster or build-time fallback; runtime failure feedback does not add a duplicate action. Legacy previews keep their existing below-frame link and load behavior.
 
 ## Arguments
 
