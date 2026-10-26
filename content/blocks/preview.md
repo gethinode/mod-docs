@@ -150,7 +150,7 @@ The preview component works well with embeddable content like [OpenStreetMap](ht
 
 When the target URL sets `X-Frame-Options` or `Content-Security-Policy: frame-ancestors 'none'`, Hugo detects this at build time via a HEAD request and renders the error overlay server-side. Provide an `image` argument to display a representative screenshot in place of the blocked iframe. The warning alert with a direct link is still shown below the image.
 
-Set `show-fallback: true` to force the error overlay explicitly — useful when the HEAD request cannot reach the target URL (offline or CI environments), or when the URL blocks embedding for your specific domain without using the headers detected above.
+Set `show_fallback: true` in Bookshop content (or `show-fallback: true` when calling the Hugo partial) to force the fallback explicitly — useful when the build cannot verify a target URL, or when you know it cannot be embedded on your site.
 
 <!-- markdownlint-disable MD037 -->
 {{< example-bookshop lang="bookshop" >}}
@@ -237,27 +237,28 @@ Build-time embedding detection issues a HEAD request to each preview URL during 
     urls = ['.*']
 ```
 
-Without this setting, the HEAD requests are silently blocked and embedding restrictions are not detected. Use `show-fallback: true` to force the fallback explicitly — it is not affected by this setting.
+Without this setting, the HEAD requests are silently blocked and embedding restrictions are not detected. Use `show_fallback: true` to force the fallback explicitly — it is not affected by this setting.
 
 ### Embedding restrictions
 
-Many websites prevent iframe embedding using `X-Frame-Options` or `Content-Security-Policy` response headers. Hugo issues a HEAD request to each preview URL at build time and inspects the response headers. Detection coverage:
+Many websites prevent iframe embedding using `X-Frame-Options` or `Content-Security-Policy` response headers. For remote URLs, Hugo requests response headers at build time, trying HEAD and then GET if needed. It checks the target's framing policy against this site's configured base URL and checks this site's `frame-src` policy. Site-relative URLs are resolved against the base URL for the `frame-src` check; Hugo does not fetch their headers. The target-header behavior is:
 
 | Response header | Build-time action |
-|---|---|
-| `X-Frame-Options` (any value) | Fallback rendered — blocks all cross-origin embedding |
-| `Content-Security-Policy: frame-ancestors 'none'` | Fallback rendered — blocks all embedding |
-| `Content-Security-Policy: frame-ancestors` with specific domains | No action — domain-specific; whether the iframe loads depends on the deployment domain |
-| No relevant headers | No action — embedding allowed by default |
+| --- | --- |
+| `X-Frame-Options: SAMEORIGIN` | Fallback rendered only when the target and this site have different origins |
+| `X-Frame-Options` with another value | Fallback rendered |
+| `Content-Security-Policy: frame-ancestors` excluding this site's configured origin | Fallback rendered |
+| `Content-Security-Policy: frame-ancestors` allowing this site's configured origin | No fallback from the target policy |
+| No relevant target headers | No fallback from the target policy; this site's `frame-src` is still checked |
 
-For `frame-ancestors` with specific domains (e.g. `'self' example.com *.example.com`), Hugo cannot determine at build time whether the iframe will load on your site, since the allowed origins depend on the deployment domain. If you know a URL will not embed on your site, use `show-fallback: true` to render the fallback explicitly.
+When a remote header request fails, Hugo warns and renders the frame; use `show_fallback: true` to force the fallback when you know embedding will fail.
 
 **Best practices:**
 
 - Use the preview component for sites you control or that explicitly allow embedding
 - Test URLs in development before deploying
 - Set `image` to a representative screenshot so users see meaningful content when embedding is blocked
-- Use `show-fallback: true` in offline or CI environments where the HEAD request cannot reach the target URL, or when a URL restricts embedding via domain-specific `frame-ancestors` headers
+- Use `show_fallback: true` when the build cannot verify a URL or you know the target cannot be embedded on your site
 - Use embeddable alternatives (e.g., youtube-nocookie.com instead of youtube.com)
 
 ## Device dimensions
@@ -265,7 +266,7 @@ For `frame-ancestors` with specific domains (e.g. `'self' example.com *.example.
 Device dimensions use **logical pixels** (CSS pixels), which is what browsers and responsive design tools use for layout. Physical pixels depend on the device pixel ratio (DPR) of the hardware display.
 
 | Device | Logical resolution | Aspect ratio | DPR reference |
-|--------|-------------------|--------------|---------------|
+| -------- | ------------------- | -------------- | --------------- |
 | Desktop | 1440 × 900px | 16:10 | @1× (MacBook / laptop) |
 | Tablet | 820 × 1180px | ~9:13 | @2× (iPad 10th gen / iPad Air M2) |
 | Mobile | 402 × 874px | 9:19.5 | @3× (iPhone 17 Pro, 460 ppi) |
@@ -276,16 +277,16 @@ A website loaded inside the iframe sees a viewport matching these logical pixel 
 
 JavaScript scales each device on page load and on every browser resize. Tablet and mobile always use a **contain fit** — the largest scale where neither dimension is clipped:
 
-```
+```text
 scale = min(containerWidth / deviceWidth, containerHeight / deviceHeight, 1)
 ```
 
 Desktop scaling depends on the `desktop_responsive` argument:
 
-| Mode | `desktop_responsive` | Behaviour |
-|------|----------------------|-----------|
-| Responsive (default) | `true` | Scales to fill the full container width; iframe height is adjusted dynamically so the container height is also filled. The site inside sees a 1440px-wide viewport. |
-| Strict aspect ratio | `false` | Contain fit — the full 1440 × 900px frame is always visible; symmetric gaps may appear above and below on wide containers. |
+| Mode                 | `desktop_responsive`   | Behaviour                                                                                                                                                           |
+| -------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Responsive (default) | `true`                 | Scales to fill the full container width; iframe height is adjusted dynamically so the container height is also filled. The site inside sees a 1440px-wide viewport. |
+| Strict aspect ratio  | `false`                | Contain fit — the full 1440 × 900px frame is always visible; symmetric gaps may appear above and below on wide containers.                                          |
 
 The zoom recalculates on page load and whenever the browser window is resized.
 
@@ -320,7 +321,7 @@ In responsive mode (default), the desktop preview fills whatever container it is
 The preview component includes iframe sandboxing for security:
 
 ```html
-sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-storage-access-by-user-activation"
 ```
 
 This restricts iframe capabilities while allowing:
@@ -329,6 +330,48 @@ This restricts iframe capabilities while allowing:
 - Access to same-origin resources (`allow-same-origin`)
 - Form submissions (`allow-forms`)
 - Opening popups/new windows (`allow-popups`)
+- Letting an embedded page request storage access after user activation (`allow-storage-access-by-user-activation`)
+
+### Choose device views
+
+Set `devices` to the subset of device views to offer, in the order their controls appear. The default is desktop, tablet, and mobile. Set `controls: false` to hide the switcher; the component then selects the largest offered view that fits the viewport and switches as the viewport crosses a device breakpoint. A `device` that is not in `devices` falls back to the first offered view.
+
+<!-- markdownlint-disable MD037 -->
+{{< example-bookshop lang="bookshop" >}}
+
+```yml
+- _bookshop_name: preview
+  url: https://example.org/
+  devices: [desktop, mobile]
+  controls: false
+```
+
+{{< /example-bookshop >}}
+<!-- markdownlint-enable MD037 -->
+
+### Load on click
+
+Set `activation: click` to show a poster and defer navigation until a visitor activates the preview. The active view loads on activation; other views load the first time they are shown. A view without its own poster uses the desktop poster. Set `mode: true` to use the matching light or dark poster suffix when available.
+
+### Switch between items
+
+Set `items` to an ordered list of views. Every item needs a `title` and `url`; optional `open_url`, `poster`, and `heading` values customize its open link, poster, and heading. Items replace `url` (when both are set, the first item URL is used). Switching items keeps the selected device, and only the shown item's URL is loaded in the shown device. Item posters fall back from the selected device to that item's desktop poster, then to the block poster.
+
+> **Item headings.** An item heading appears with its tab. If an item has no heading, the block heading is used. A build-time fallback has no item tabs and displays the first item's heading, when supplied.
+
+### Runtime loading, fallback, and readiness
+
+The active view loads by default; views load when first shown. `activation: click` adds an explicit visitor action before any view loads. `load_timeout` sets the per-navigation deadline in seconds (default 15), starting when a waiting view enters the viewport. On timeout, the frame shows an alert and a link to open the target; a supplied poster remains behind the alert. Without a poster, the alert appears against the frame background. A page-relative URL is resolved on this site.
+
+The iframe `load` event does not prove the target is healthy: browsers can fire it for an HTTP 503 response or a refused connection. With the default empty `ready_message`, load ends the wait. To wait for positive readiness, set `ready_message` to a token shared with a cooperating framed page. For example, the self-contained [readiness example](https://github.com/gethinode/mod-blocks/blob/main/exampleSite/content/components/preview-ready.md) uses `example:ready`. A child page can announce readiness after its DOM is ready and answer only requests from its own parent that contain the matching token. The preview requests a reply when the frame loads, so an early announcement can be recovered. The example's Ready page replies; its Silent page does not.
+
+In readiness mode, a view stays busy behind its poster and its frame cannot take focus until the current frame acknowledges the exact token or the deadline expires. A late acknowledgement from the current frame can recover the view. Messages from another frame, a previous navigation, or with a different token do not count. Changing items or showing a view for the first time starts a new wait. This is a one-time navigation check, not ongoing health monitoring; behavior after the framed app navigates internally belongs to that app. Keep the token non-sensitive: messages must not carry visitor data, privileged actions, URLs, or HTML.
+
+The build-time fallback remains distinct from runtime failure. When Hugo detects that a target refuses framing, the block renders its fallback without a waiting or failed runtime state. For remote URLs, the build requests response headers and checks framing restrictions when it can; a failed request produces a warning and leaves the frame rendered. Site-relative URLs resolve against the site's base URL and are checked against its `frame-src` policy without a remote header request.
+
+### Open link and buttons
+
+Set `open_link: true` to show a link under the frame. It opens the current item's `open_url`, or its `url`; without items it opens the block `url`. Set `links` to render additional buttons under the frame, each with a `title` and `url`. A build-time fallback does not render the open link.
 
 ## Arguments
 
