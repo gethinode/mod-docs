@@ -397,7 +397,7 @@ See the [window preview example](https://github.com/gethinode/mod-blocks/blob/ma
 
 ### Window states and appearance
 
-The window title bar shows `Preview` before its current view is admitted, `Loading` while it waits, `Live` after the current view passes its configured readiness check, and `Unavailable` when a wait times out. Without `ready_message`, the iframe load event ends the wait; with it, the current frame must post that exact message. Theme synchronization adds a matching current-theme acknowledgement before `Live`. In a compact title bar, a shorter visible state such as `Wait` or `Error` sits below the open action; the full accessible status remains available.
+The window title bar shows `Preview` before its current view is admitted, `Loading` while it waits, `Live` after the current view passes its configured readiness check, and `Unavailable` when a wait times out. Without `ready_message`, the iframe load event ends the wait; with it, the current frame must post that exact message. Theme synchronization adds a matching current-theme acknowledgement before `Live`. In a compact title bar, a shorter visible state such as `Wait` or `Error` sits beside the open action; the full accessible status remains available.
 
 While a view is loading or has failed, a 30% black scrim sits over its poster, with the status and spinner painted above the scrim. A ready view removes the poster and scrim. A static phone view stays in `Preview` without a loading spinner or scrim because it makes no embedded-page request.
 
