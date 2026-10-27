@@ -395,9 +395,46 @@ poster:
 
 See the [window preview example](https://github.com/gethinode/mod-blocks/blob/main/exampleSite/content/components/preview-window.md) for the complete runnable source. It uses a local child page and stays static below 1024px.
 
+### Window states and appearance
+
+The window title bar shows `Preview` before its current view is admitted, `Loading` while it waits, `Live` after the current view passes its configured readiness check, and `Unavailable` when a wait times out. Without `ready_message`, the iframe load event ends the wait; with it, the current frame must post that exact message. Theme synchronization adds a matching current-theme acknowledgement before `Live`. In a compact title bar, a shorter visible state such as `Wait` or `Error` sits below the open action; the full accessible status remains available.
+
+While a view is loading or has failed, a 30% black scrim sits over its poster, with the status and spinner painted above the scrim. A ready view removes the poster and scrim. A static phone view stays in `Preview` without a loading spinner or scrim because it makes no embedded-page request.
+
+The window open action uses the theme's existing `externalLink` icon mapping, whose default is a generic external-link glyph. The window's CSS custom property `--preview-window-border-radius` overrides the Sass fallback `$preview-window-border-radius` (default `0.375rem`) without changing other theme corners. A site can set the custom property, for example to `0`, to choose square window corners.
+
+The block forwards the existing section `padding` option. Leave it unset to retain the section's default spacing, or set `padding: 0` to remove its vertical padding while preserving horizontal alignment.
+
 ### Readiness with a local child page
 
 `ready_message` can wait for an exact reply from a page that you control. The [readiness example](https://github.com/gethinode/mod-blocks/blob/main/exampleSite/content/components/preview-ready.md) uses `example:ready`: its Ready child announces after the DOM is ready and answers requests only from its own parent, while its Silent child never announces. The example demonstrates the matching request/reply protocol without treating readiness as an ongoing health check.
+
+### Synchronize an embedded page's theme
+
+Set `theme_message` to opt a cooperating child page into synchronization with the outer page's resolved light or dark theme. The argument defaults to empty and requires a nonempty `ready_message`; omitting it preserves ordinary readiness behavior. Use distinct tokens for readiness and theme requests. When calling the Hugo partial directly, use `theme-message`. This code-only Bookshop configuration uses the public example tokens and the producer example site's local Ready page:
+
+```yml
+url: /preview-demo/ready/
+frame: window
+activation: visible
+mobile_static: true
+ready_message: example:ready
+theme_message: example:theme
+```
+
+When adapting the snippet to your own site, use a child page your site serves instead of `/preview-demo/ready/`.
+
+After the current child sends its readiness message, the parent requests the resolved theme with a unique positive safe-integer request ID, for example `{type: "example:theme", theme: "dark", requestId: 1}`. The parent sends only to that frame's captured nonopaque HTTP(S) origin. The child validates the message from its actual parent and exact parent origin, applies the requested theme, then replies with the same fields and `applied: true`. The parent reveals the view only after an acknowledgement from the current frame window at its captured origin matches the request ID and theme. A new child document or theme request needs a fresh matching acknowledgement; an old or out-of-order reply cannot reveal the view. The parent resolves `auto` to light or dark before sending the request.
+
+For full-document navigation, the bridge carries transient theme intent in a `window.name` seed beginning `hinode-preview-theme:` followed by `{type, theme, requestId, parentOrigin}` JSON. The initial seed uses request ID `0`; theme requests use positive safe integers. Keep the complete seed within 512 JavaScript string code units and use a canonical HTTP(S) parent origin. A participating child reads the seed as early theme context and mirrors each validated request into its own `window.name` before acknowledging; the seed alone is not readiness or proof that the theme was applied. This context is not a cookie or stored preference.
+
+Hinode also exposes the synchronous, cancelable document event `hinode:color-mode:before-change`. Its `detail.theme` is the requested preference (`auto`, `light`, or `dark`); invalid values normalize to `auto`. When not canceled, `auto` resolves to system appearance after dispatch. Calling `preventDefault()` skips that setter's preference storage, root theme attributes, and selector updates, but does not undo earlier preference reads/writes or native control changes. Without cancellation, normal theme behavior remains. A child managed by its preview parent can intercept local setter updates while managed, then apply the parent's resolved theme without persisting it. While managed, its duplicate theme selector is hidden and the outer page remains authoritative; standalone and unmanaged pages keep their normal selector behavior.
+
+### Guarded loading and browser policy
+
+`activation: visible`, `mobile_static: true`, and a nonempty `theme_message` use a guarded loading path. Their iframe begins with a literally empty, script-free `srcdoc` in the same browsing context. The resulting `about:srcdoc` load only releases the guard; it is never treated as the child page's readiness and never starts or resets its load deadline. The actual URL is opened with `Location.replace` only after the blank document has completed and the current iframe, owner document, controller generation, and activation mode still admit navigation. Unconfigured legacy `load` and `click` previews keep their existing behavior.
+
+These enhanced modes require native custom-element lifecycle callbacks (`customElements.define`/`get` and `HTMLElement`) so removal or adoption can release ownership synchronously. They also require an HTTP(S) parent and target, the preview iframe's `no-referrer-when-downgrade` policy, and a sandbox that permits same-origin access. An opaque sandbox or a different, stricter element referrer policy is incompatible, and an HTTPS page will not load an HTTP child. If a capability or policy check fails, the child is not requested; the preview stays in its static `Preview` state with its poster or neutral background and any configured open action. The guard keeps the page's existing `Referrer-Policy` and iframe policy; it does not widen either policy to enable navigation. The standard Hinode `strict-origin` document policy with the preview's compiled `no-referrer-when-downgrade` iframe policy is supported. These are enhanced-mode requirements, not a general guarantee for every third-party theme or browser.
 
 ### Window with item-specific links
 
@@ -419,6 +456,8 @@ This keeps the current load activation, all three device views, controls, and le
 - [Items](https://github.com/gethinode/mod-blocks/blob/main/exampleSite/content/components/preview-items.md)
 - [Readiness](https://github.com/gethinode/mod-blocks/blob/main/exampleSite/content/components/preview-ready.md)
 - [Window, visible activation, and static narrow view](https://github.com/gethinode/mod-blocks/blob/main/exampleSite/content/components/preview-window.md)
+
+These examples use local child pages in the producer's example site rather than remote framing targets. The basic page becomes live; click activation waits for the poster button; device and item examples change the offered view; readiness contrasts a replying Ready page with a Silent page that reaches its timeout; and the window example combines visible activation with a static narrow-screen view. The light/dark posters match their child page and device.
 
 ### Switch between items
 
