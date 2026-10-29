@@ -393,7 +393,7 @@ poster:
   desktop: img/poster-desktop.png
 ```
 
-See the [window preview example](https://github.com/gethinode/mod-blocks/blob/main/exampleSite/content/components/preview-window.md) for the complete runnable source. It uses a local child page and stays static below 1024px.
+See the [window preview example](https://github.com/gethinode/mod-blocks/blob/v2.13.0/exampleSite/content/components/preview-window.md) for the complete runnable source. It uses a local child page and stays static below 1024px.
 
 ### Window states and appearance
 
@@ -407,7 +407,7 @@ The block forwards the existing section `padding` option. Leave it unset to reta
 
 ### Readiness with a local child page
 
-`ready_message` can wait for an exact reply from a page that you control. The [readiness example](https://github.com/gethinode/mod-blocks/blob/main/exampleSite/content/components/preview-ready.md) uses `example:ready`: its Ready child announces after the DOM is ready and answers requests only from its own parent, while its Silent child never announces. The example demonstrates the matching request/reply protocol without treating readiness as an ongoing health check.
+`ready_message` can wait for an exact reply from a page that you control. The [readiness example](https://github.com/gethinode/mod-blocks/blob/v2.13.0/exampleSite/content/components/preview-ready.md) uses `example:ready`: its Ready child announces after the DOM is ready and answers requests only from its own parent, while its Silent child never announces. The example demonstrates the matching request/reply protocol without treating readiness as an ongoing health check.
 
 ### Synchronize an embedded page's theme
 
@@ -452,12 +452,12 @@ url: https://example.org/
 
 This keeps the current load activation, all three device views, controls, and legacy frame. The six focused producer pages cover:
 
-- [Basic preview](https://github.com/gethinode/mod-blocks/blob/main/exampleSite/content/components/preview.md)
-- [Click activation](https://github.com/gethinode/mod-blocks/blob/main/exampleSite/content/components/preview-click.md)
-- [Device selection](https://github.com/gethinode/mod-blocks/blob/main/exampleSite/content/components/preview-devices.md)
-- [Items](https://github.com/gethinode/mod-blocks/blob/main/exampleSite/content/components/preview-items.md)
-- [Readiness](https://github.com/gethinode/mod-blocks/blob/main/exampleSite/content/components/preview-ready.md)
-- [Window, visible activation, and static narrow view](https://github.com/gethinode/mod-blocks/blob/main/exampleSite/content/components/preview-window.md)
+- [Basic preview](https://github.com/gethinode/mod-blocks/blob/v2.13.0/exampleSite/content/components/preview.md)
+- [Click activation](https://github.com/gethinode/mod-blocks/blob/v2.13.0/exampleSite/content/components/preview-click.md)
+- [Device selection](https://github.com/gethinode/mod-blocks/blob/v2.13.0/exampleSite/content/components/preview-devices.md)
+- [Items](https://github.com/gethinode/mod-blocks/blob/v2.13.0/exampleSite/content/components/preview-items.md)
+- [Readiness](https://github.com/gethinode/mod-blocks/blob/v2.13.0/exampleSite/content/components/preview-ready.md)
+- [Window, visible activation, and static narrow view](https://github.com/gethinode/mod-blocks/blob/v2.13.0/exampleSite/content/components/preview-window.md)
 
 These examples use local child pages in the producer's example site rather than remote framing targets. The basic page becomes live; click activation waits for the poster button; device and item examples change the offered view; readiness contrasts a replying Ready page with a Silent page that reaches its timeout; and the window example combines visible activation with a static narrow-screen view. The light/dark posters match their child page and device.
 
@@ -471,7 +471,7 @@ Set `items` to an ordered list of views. Every item needs a `title` and `url`; o
 
 The active view loads by default; views load when first shown. `activation: click` adds an explicit visitor action before any view loads. `load_timeout` sets the per-navigation deadline in seconds (default 15), starting when a waiting view enters the viewport. On timeout, the frame shows an alert and a link to open the target; a supplied poster remains behind the alert. Without a poster, the alert appears against the frame background. With an empty `ready_message`, the initial frame whose `src` is in the markup has no deadline because it may load before the script starts; navigations started later by the script are timed. A page-relative URL is resolved on this site.
 
-The iframe `load` event does not prove the target is healthy: browsers can fire it for an HTTP 503 response or a refused connection. With the default empty `ready_message`, load ends the wait. To wait for positive readiness, set `ready_message` to a token shared with a cooperating framed page. For example, the self-contained [readiness example](https://github.com/gethinode/mod-blocks/blob/main/exampleSite/content/components/preview-ready.md) uses `example:ready`. A child page can announce readiness after its DOM is ready and answer only requests from its own parent that contain the matching token. The preview requests a reply when the frame loads, so an early announcement can be recovered. The example's Ready page replies; its Silent page does not.
+The iframe `load` event does not prove the target is healthy: browsers can fire it for an HTTP 503 response or a refused connection. With the default empty `ready_message`, load ends the wait. To wait for positive readiness, set `ready_message` to a token shared with a cooperating framed page. For example, the self-contained [readiness example](https://github.com/gethinode/mod-blocks/blob/v2.13.0/exampleSite/content/components/preview-ready.md) uses `example:ready`. A child page can announce readiness after its DOM is ready and answer only requests from its own parent that contain the matching token. The preview requests a reply when the frame loads, so an early announcement can be recovered. The example's Ready page replies; its Silent page does not.
 
 When a live view loads in readiness mode, it stays busy behind its poster and its frame cannot take focus until the current frame acknowledges the exact token or the deadline expires. With click activation, before the poster button is pressed, item changes update the selected poster and item heading, when supplied, without requesting a frame or starting a wait. After activation, each item or device navigation gets its own wait. A late acknowledgement from the current frame can recover the view. Messages from another frame, a previous navigation, or with a different token do not count. This is a one-time navigation check, not ongoing health monitoring; behavior after the framed app navigates internally belongs to that app. Keep the token non-sensitive: messages must not carry visitor data, privileged actions, URLs, or HTML.
 
