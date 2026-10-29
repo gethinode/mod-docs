@@ -93,7 +93,6 @@ Set `responsive` to `false` and omit any content to render a minimal, horizontal
 {{< /example-bookshop >}}
 <!-- markdownlint-enable MD037 -->
 
-
 ## Arguments
 
 The content block supports the following arguments:

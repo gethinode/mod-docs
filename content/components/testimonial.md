@@ -101,7 +101,7 @@ Use `link` to add a call-to-action button pointing to a case study.
 
 <!-- markdownlint-disable MD037 -->
 {{< example lang="hugo" >}}
-{{</* testimonial 
+{{</* testimonial
     image="/img/placeholder.png"
     link="https://example.com/case-study" */>}}
   Hinode has transformed the way we publish documentation. It is fast, flexible,
