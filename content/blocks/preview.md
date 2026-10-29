@@ -22,7 +22,7 @@ modules: ["preview"]
 
 ### Basic preview
 
-The `preview` content block renders a live URL preview in an iframe with device switcher controls. By default it uses `activation: load`, offers desktop, tablet, and mobile views, enables controls, and uses the legacy `frame: none` layout. Those defaults preserve existing markup and behavior when the new options are omitted.
+The `preview` content block renders a live URL preview in an iframe with device switcher controls. By default it uses `activation: load`, offers desktop, tablet, and mobile views, enables controls, and uses the legacy `frame: none` layout. Those defaults preserve the existing load behavior when the new options are omitted; the markup gains `data-src`, `data-devices`, and `data-load-timeout` attributes and a hidden unavailable block.
 
 <!-- markdownlint-disable MD037 -->
 {{< example-bookshop lang="bookshop" >}}
@@ -228,7 +228,7 @@ This allows embedding localhost sites during development while maintaining secur
 
 ### Hugo security configuration
 
-When the build checks a remote preview URL, it tries HEAD first and retries with GET if Hugo rejects that method. Hugo's default security policy only allows `GET` and `POST` methods, so allowing HEAD avoids the retry. Add the following to your site's `config/_default/hugo.toml`:
+When the build checks a remote preview URL, it tries HEAD first and retries with GET if the HEAD request fails for any reason, including Hugo rejecting that method. Hugo's default security policy only allows `GET` and `POST` methods, so allowing HEAD avoids the retry. Add the following to your site's `config/_default/hugo.toml`:
 
 ```toml
 [security]
@@ -250,6 +250,8 @@ Many websites prevent iframe embedding using `X-Frame-Options` or `Content-Secur
 | `Content-Security-Policy: frame-ancestors` excluding this site's configured origin | Fallback rendered |
 | `Content-Security-Policy: frame-ancestors` allowing this site's configured origin | No fallback from the target policy |
 | No relevant target headers | No fallback from the target policy; this site's `frame-src` is still checked |
+
+When the target's CSP declares `frame-ancestors`, Hugo ignores its `X-Frame-Options` header.
 
 When a remote header request fails, Hugo warns and continues to the `frame-src` check; that check may still select the fallback. Use `show_fallback: true` when you know embedding will fail.
 
@@ -341,7 +343,7 @@ Set `devices` to the subset of device views to offer, in the order their control
 
 ```yml
 - _bookshop_name: preview
-  url: https://example.org/
+  url: "https://en.wikipedia.org/wiki/Hugo_(software)"
   devices: [desktop, mobile]
   controls: false
 ```
@@ -364,7 +366,7 @@ activation: visible
 
 ### Keep narrow screens static
 
-Set `mobile_static: true` (default `false`) to keep the preview static below 1024px. At those widths the page renders a poster image, when supplied, or a neutral background. The component makes no embedded-page navigation request there, including after scrolling, resizing, or waiting. Returning to desktop follows the configured `activation` mode; `click` still requires a new click. This option does not add a tablet layout.
+Set `mobile_static: true` (default `false`) to keep the preview static below 1024px. At those widths the page renders a poster image, falling back to the `image` argument when no poster is supplied, or a neutral background when neither is. The component makes no embedded-page navigation request there, including after scrolling, resizing, or waiting. Returning to desktop follows the configured `activation` mode; `click` still requires a new click. This option does not add a tablet layout.
 
 ```yml
 url: /example/
@@ -407,7 +409,7 @@ The block forwards the existing section `padding` option. Leave it unset to reta
 
 ### Readiness with a local child page
 
-`ready_message` can wait for an exact reply from a page that you control. The [readiness example](https://github.com/gethinode/mod-blocks/blob/v2.13.0/exampleSite/content/components/preview-ready.md) uses `example:ready`: its Ready child announces after the DOM is ready and answers requests only from its own parent, while its Silent child never announces. The example demonstrates the matching request/reply protocol without treating readiness as an ongoing health check.
+`ready_message` can wait for an exact reply from a page that you control. The [readiness example](https://github.com/gethinode/mod-blocks/blob/v2.13.0/exampleSite/content/components/preview-ready.md) uses `example:ready` and also sets `theme_message: example:theme`: its Ready child announces after the DOM is ready and answers requests only from its own parent, while its Silent child never announces. The example demonstrates the matching request/reply protocol without treating readiness as an ongoing health check.
 
 ### Synchronize an embedded page's theme
 
@@ -430,7 +432,7 @@ For full-document navigation, the bridge carries transient theme intent in a `wi
 
 On `pagehide` and early startup of a newly navigated document, a participating child sends a matching `applied: false` invalidation. The parent also invalidates the current theme proof on the iframe's load event. A current invalidation returns the frame to its poster/waiting state, makes it inert, and requires a fresh readiness message, theme request, and `applied: true` acknowledgement before it appears again. Signals from an older document or superseded request cannot invalidate newer proof.
 
-Hinode also exposes the synchronous, cancelable document event `hinode:color-mode:before-change`. Its `detail.theme` is the requested preference (`auto`, `light`, or `dark`); invalid values normalize to `auto`. When not canceled, `auto` resolves to system appearance after dispatch. Calling `preventDefault()` skips that setter's preference storage, root theme attributes, and selector updates, but does not undo earlier preference reads/writes or native control changes. Without cancellation, normal theme behavior remains. A child managed by its preview parent can intercept local setter updates while managed, then apply the parent's resolved theme without persisting it. While managed, its duplicate theme selector is hidden and the outer page remains authoritative; standalone and unmanaged pages keep their normal selector behavior.
+Hinode also exposes the synchronous, cancelable document event `hinode:color-mode:before-change`. Its `detail.theme` is the requested preference (`auto`, `light`, or `dark`); invalid values normalize to `auto`. When not canceled, `auto` resolves to system appearance after dispatch. Calling `preventDefault()` skips that setter's preference storage, root theme attributes, and selector updates, but does not undo earlier preference reads/writes or native control changes. Without cancellation, normal theme behavior remains. Hinode provides only this event; it does not manage a framed child's theme selector. A cooperating child page managed by its preview parent may cancel this event to intercept local setter updates while managed, then apply the parent's resolved theme without persisting it. The child may also hide its own duplicate theme selector while managed so the outer page remains authoritative, and keep its normal selector behavior when standalone or unmanaged.
 
 ### Guarded loading and browser policy
 
@@ -473,7 +475,7 @@ The active view loads by default; views load when first shown. `activation: clic
 
 The iframe `load` event does not prove the target is healthy: browsers can fire it for an HTTP 503 response or a refused connection. With the default empty `ready_message`, load ends the wait. To wait for positive readiness, set `ready_message` to a token shared with a cooperating framed page. For example, the self-contained [readiness example](https://github.com/gethinode/mod-blocks/blob/v2.13.0/exampleSite/content/components/preview-ready.md) uses `example:ready`. A child page can announce readiness after its DOM is ready and answer only requests from its own parent that contain the matching token. The preview requests a reply when the frame loads, so an early announcement can be recovered. The example's Ready page replies; its Silent page does not.
 
-When a live view loads in readiness mode, it stays busy behind its poster and its frame cannot take focus until the current frame acknowledges the exact token or the deadline expires. With click activation, before the poster button is pressed, item changes update the selected poster and item heading, when supplied, without requesting a frame or starting a wait. After activation, each item or device navigation gets its own wait. A late acknowledgement from the current frame can recover the view. Messages from another frame, a previous navigation, or with a different token do not count. This is a one-time navigation check, not ongoing health monitoring; behavior after the framed app navigates internally belongs to that app. Keep the token non-sensitive: messages must not carry visitor data, privileged actions, URLs, or HTML.
+When a live view loads in readiness mode, it stays busy behind its poster and its frame cannot take focus until the current frame acknowledges the exact token. If the deadline expires first, the frame is hidden and stays inert, so it still cannot take focus. With click activation, before the poster button is pressed, item changes update the selected poster and item heading, when supplied, without requesting a frame or starting a wait. After activation, each item or device navigation gets its own wait. A late acknowledgement from the current frame can recover the view. Messages from another frame, a previous navigation, or with a different token do not count. This is a one-time navigation check, not ongoing health monitoring; behavior after the framed app navigates internally belongs to that app. Keep the token non-sensitive: messages must not carry visitor data, privileged actions, URLs, or HTML.
 
 The build-time fallback remains distinct from runtime failure: a block that shows its fallback has no waiting or failed runtime state. The build-time checks run only when this site's base URL has a host and a fallback has not already been selected. A failed remote-header request produces a warning, then the site's `frame-src` policy is still checked when one is published. Site-relative URLs resolve against the base URL and skip the remote header request.
 
