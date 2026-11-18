@@ -51,7 +51,7 @@
     "markdownlint-cli2": "^0.24.1",
     "npm-run-all": "^4.1.5",
     "rimraf": "^6.1.4",
-    "semantic-release": "^25.0.9",
+    "semantic-release": "^26.0.0",
     "stylelint": "^17.16.0",
     "stylelint-config-standard-scss": "^17.0.0"
   },
